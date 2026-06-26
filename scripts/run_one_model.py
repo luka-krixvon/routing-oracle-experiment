@@ -25,6 +25,8 @@ def main():
     ap.add_argument("--quantization", default=None)      # e.g. "awq" | "awq_marlin" | None(fp16)
     ap.add_argument("--tensor_parallel_size", type=int, default=1)
     ap.add_argument("--gpu_mem_util", type=float, default=0.92)
+    ap.add_argument("--max_model_len", type=int, default=None)  # per-model cap (e.g. 3072 for the tight 32B AWQ)
+    ap.add_argument("--seed", type=int, default=42)            # root seed for the seed-aligned draws (A8)
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     root = os.path.dirname(os.path.dirname(__file__))
@@ -36,12 +38,13 @@ def main():
         print("[skip] already done:", out); return       # resumable
 
     cfg = GenConfig(k=a.k, temperature=a.temperature, top_p=a.top_p,
-                    max_tokens=a.max_tokens, seed_alignment=True)
+                    max_tokens=a.max_tokens, seed_alignment=True, root_seed=a.seed)
     # build the shared vLLM engine once with memory caps that fit a single 4090
     from vllm import LLM
+    max_model_len = a.max_model_len or min(8192, a.max_tokens + 2048)
     llm_kw = {"gpu_memory_utilization": a.gpu_mem_util,
               "tensor_parallel_size": a.tensor_parallel_size,
-              "max_model_len": min(8192, a.max_tokens + 2048), "enforce_eager": True}
+              "max_model_len": max_model_len, "enforce_eager": True}
     if a.quantization:
         llm_kw["quantization"] = a.quantization
     print(f"[load] {a.model} (quant={a.quantization}, tp={a.tensor_parallel_size})")
@@ -58,15 +61,29 @@ def main():
 
     N, k = len(subset), a.k
     b_m = np.zeros((N, k), dtype=np.int8); greedy_m = np.zeros(N, dtype=np.int8)
+    Y_m = np.empty((N, k), dtype=object); gold_m = np.empty(N, dtype=object)
+    samples_m = np.empty((N, k), dtype=object)              # raw text, kept so a scoring fix re-scores on CPU
     for i, (q, g) in enumerate(zip(subset, gens)):
+        gold, task = q.get("gold"), q.get("task", "exact"); gold_m[i] = str(gold)
         for j, s in enumerate(g["samples"][:k]):
-            b_m[i, j] = scorer.exact_match(s or "", q.get("gold"), q.get("task", "exact"))
+            s = s or ""
+            samples_m[i, j] = s
+            b_m[i, j] = scorer.exact_match(s, gold, task)
+            Y_m[i, j] = scorer.extract_answer(s, task)      # canonical label for O^agg
         if g.get("greedy") is not None:
-            greedy_m[i] = scorer.exact_match(g["greedy"], q.get("gold"), q.get("task", "exact"))
-    np.savez(out, b_m=b_m, greedy_m=greedy_m,
-             ids=np.array([q["id"] for q in subset]),
-             model=a.model, k=k)
-    print(f"[done] {a.model}: mean single-draw acc={b_m[:,0].mean():.3f}, mean p_hat={b_m.mean():.3f} -> {out}")
+            greedy_m[i] = scorer.exact_match(g["greedy"], gold, task)
+    # main (tiny) column: correctness + labels + run config -> combine.py / 04
+    np.savez(out, b_m=b_m, greedy_m=greedy_m, Y_m=Y_m, gold=gold_m,
+             ids=np.array([q["id"] for q in subset]), model=a.model, k=k,
+             seed=a.seed, temperature=a.temperature, top_p=a.top_p, max_tokens=a.max_tokens,
+             max_model_len=max_model_len, quantization=str(a.quantization),
+             tensor_parallel_size=a.tensor_parallel_size)
+    # raw-text sidecar (compressed, separate file) so a scoring bug never forces a GPU re-run
+    raw = out[:-4] + "_raw.npz" if out.endswith(".npz") else out + "_raw.npz"
+    np.savez_compressed(raw, samples=samples_m, ids=np.array([q["id"] for q in subset]), model=a.model)
+    if b_m.mean() == 0:
+        print(f"[WARN] {a.model}: ALL-ZERO correctness -- check scorer/prompt/extraction before trusting this run!")
+    print(f"[done] {a.model}: mean single-draw acc={b_m[:,0].mean():.3f}, mean p_hat={b_m.mean():.3f} -> {out} (+raw)")
 
 
 if __name__ == "__main__":

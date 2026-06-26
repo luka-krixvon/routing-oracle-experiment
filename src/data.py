@@ -27,7 +27,7 @@ def load_benchmark(name: str = "gsm8k", split: str = "test", n: int | None = Non
     rng = np.random.default_rng(seed)
     recs = []
     if name == "gsm8k":
-        ds = load_dataset("gsm8k", "main", split=split)
+        ds = load_dataset("openai/gsm8k", "main", split=split)
         for i, ex in enumerate(ds):
             gold = ex["answer"].split("####")[-1].strip().replace(",", "")
             prompt = (ex["question"].strip() +

@@ -146,7 +146,7 @@ def family_correlation(b, models, outdir):
                     "CSV: family_correlation.csv"}
 
 
-def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None):
+def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None, Y=None, gold=None):
     b = np.asarray(b, float); q = np.asarray(q_router, float)
     N, M, k = b.shape
 
@@ -161,6 +161,21 @@ def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None):
     O_repro = oracles.oracle_reproducible(phat)
     O_perp = oracles.oracle_expected_perp_envelope(phat)      # independent-coupling upper envelope
     O_single = oracles.oracle_single(b_single)
+
+    os.makedirs(outdir, exist_ok=True)
+    path = os.path.join(outdir, "decomposition.json")
+    # PROTOCOL: a failed pre-gate suppresses the magnitude study (report nothing but the gates).
+    if not gates_pass:
+        out = {"mode": "simulated" if outdir.endswith("mvp") else "data",
+               "magnitude_suppressed": True,
+               "gates": {"known_p": gA, "independence": gB, "all_pass": False},
+               "oracles_mean": {"single": float(O_single.mean()), "exp_seed_aligned": float(O_exp.mean()),
+                                "exp_perp_envelope": float(O_perp.mean()),
+                                "reproducible": float(O_repro.mean()), "router": float(q.mean())},
+               "note": "A pre-gate failed (known-p TV and/or per-draw independence vs A1/provider caching); "
+                       "per protocol the magnitude study reports NO decomposition/noise_share/best-of-K."}
+        json.dump(out, open(path, "w"), indent=2, ensure_ascii=False)
+        return out, path
 
     main = decompose.decompose_gap(phat, q, O_exp=O_exp); main.pop("_per_query", None)
     cons = decompose.decompose_gap_conservative(b, q, n_strata=n_strata); cons.pop("_per_query", None)
@@ -201,12 +216,19 @@ def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None):
         "falsifiable_best_of_K": bestofK,
         "stratified": strat,
     }
+    # verifier-free aggregation split (Lemma aggfloor / Cor. scopefloor): needs answer labels Y + gold
+    if Y is not None and gold is not None:
+        O_agg = oracles.oracle_agg_from_labels(Y, gold)
+        d_know = np.clip(O_agg - O_repro, 0, None)            # recoverable without a verifier (vote up to O^agg)
+        d_guess = np.clip(O_exp - O_agg, 0, None)             # union-minus-deliverable; needs a verifier
+        out["verifier_free_split"] = {
+            "O_agg_mean": float(O_agg.mean()),
+            "Delta_know_mean": float(d_know.mean()), "Delta_guess_mean": float(d_guess.mean()),
+            "note": "O_agg = single plurality/self-consistency vote (a LOWER bound on the sup O^agg)."}
     # pool-composition robustness (only with real model names; needs >=2 models)
     if models is not None and M >= 2:
         out["pool_definitions"] = pool_definitions(b, models, B=B, seed=seed, n_strata=n_strata)
         out["family_correlation"] = family_correlation(b, models, outdir)
-    os.makedirs(outdir, exist_ok=True)
-    path = os.path.join(outdir, "decomposition.json")
     json.dump(out, open(path, "w"), indent=2, ensure_ascii=False)
     return out, path
 
@@ -261,8 +283,11 @@ if __name__ == "__main__":
                 models = json.loads(raw).get("models")
             except Exception:
                 models = None
+        Y = d["Y"] if "Y" in d.files else None
+        gold = d["gold"] if "gold" in d.files else None
         outdir = a.outdir or os.path.join(root, "results", "data")
-        out, path = run(d["b"], d["b_single"], d["q_router"], outdir, seed=a.seed, models=models)
+        out, path = run(d["b"], d["b_single"], d["q_router"], outdir, seed=a.seed,
+                        models=models, Y=Y, gold=gold)
         print(json.dumps(out, indent=2, ensure_ascii=False)); print("wrote", path)
     else:
         print("use --mvp (simulated smoke test) or --npz PATH (real data from 03_score.py)")

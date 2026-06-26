@@ -129,6 +129,20 @@ def test_agg_from_labels_plurality():
     assert out[0] == 1.0 and out[1] == 0.0
 
 
+def test_score_exact_match():
+    """Guard the live scorers (the data-producing layer): GSM8K numeric normalization
+    and MMLU final-letter extraction -- the bugs that silently deflate p_hat."""
+    from src import score
+    assert score.exact_match("#### 72.0", "72", "gsm8k") == 1
+    assert score.exact_match("The answer is 18.", "18", "gsm8k") == 1
+    assert score.exact_match("#### 1,200", "1200", "gsm8k") == 1
+    assert score.exact_match("we checked 2 times, #### 18", "18", "gsm8k") == 1
+    assert score.exact_match("#### 19", "18", "gsm8k") == 0
+    assert score.exact_match("Option A is wrong, so the answer is C.", "C", "mmlu_pro") == 1
+    assert score.exact_match("Choice A... but B", "B", "mmlu_pro") == 1
+    assert score.exact_match("answer: D", "C", "mmlu_pro") == 0
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:

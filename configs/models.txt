@@ -1,6 +1,6 @@
-# Operative model pool for run_sequential.sh  —  format: repo_id | quant | tensor_parallel
-# Verified on HuggingFace (preflight). Edit freely; one model per line.
-# quant: none (fp16) | awq        tensor_parallel: 1 (single 4090) | 2 (both 4090s)
+# Operative model pool for run_sequential.sh  —  format: repo_id | quant | tensor_parallel | [max_model_len]
+# Verified on HuggingFace (preflight). Edit freely; one model per line. Inline # comments are stripped.
+# quant: none (fp16) | awq    tensor_parallel: 1 (single 4090) | 2 (both 4090s)    max_model_len: optional, cap context to fit tight cards
 # Peak disk per model with sequential+purge = the largest single download below (~29GB) < 55GB.
 #
 # ---- open (no login needed) ----
@@ -8,7 +8,7 @@ mistralai/Mistral-7B-Instruct-v0.3 | none | 1      # 7.2B fp16 ~15GB VRAM
 deepseek-ai/DeepSeek-R1-Distill-Qwen-7B | none | 1 # 7.6B fp16 ~15GB (long-CoT: raise K cost)
 Qwen/Qwen2.5-7B-Instruct-AWQ | awq | 1             # 7.6B 4bit ~5.5GB
 Qwen/Qwen2.5-14B-Instruct-AWQ | awq | 1            # 14.8B 4bit ~9GB
-Qwen/Qwen2.5-32B-Instruct-AWQ | awq | 1            # 32.8B 4bit ~20GB (one 4090, tight)
+Qwen/Qwen2.5-32B-Instruct-AWQ | awq | 1 | 3072     # 32.8B 4bit ~20GB; cap ctx to 3072 so KV fits one 4090
 microsoft/phi-4 | none | 2                         # 14.7B fp16 ~29GB -> needs BOTH 4090s (tp=2)
 #   ^ if you prefer one card, swap for a community 4-bit phi-4 (e.g. *-AWQ) and set quant=awq|1
 #
