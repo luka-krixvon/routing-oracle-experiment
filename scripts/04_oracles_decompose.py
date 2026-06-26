@@ -34,7 +34,119 @@ def _bootstrap_share_ci(O_exp, O_repro, q, B=2000, alpha=0.05, seed=0):
     return pt, float(lo), float(hi)
 
 
-def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1):
+# ---- pool-composition robustness: lineage map, sub-pool decomposition, correlation ----
+# Group by PRETRAINING lineage, not vendor brand: a Qwen-distilled model counts as Qwen.
+LINEAGE_RULES = [
+    ("qwen", "Qwen"),               # incl. DeepSeek-R1-Distill-Qwen (arch=qwen2, Qwen2.5 base)
+    ("ministral", "Mistral"), ("mixtral", "Mistral"), ("mistral", "Mistral"),
+    ("phi", "Phi"), ("gemma", "Gemma"), ("llama", "Llama"), ("olmo", "OLMo"),
+    ("yi-", "Yi"), ("/yi", "Yi"), ("granite", "Granite"), ("internlm", "InternLM"),
+    ("glm", "GLM"), ("falcon", "Falcon"), ("exaone", "EXAONE"),
+    ("aya", "Cohere"), ("command", "Cohere"), ("cohere", "Cohere"),
+]
+
+
+def classify_lineage(name):
+    """Map an HF repo id to its pretraining lineage; fall back to the org prefix."""
+    s = str(name).lower()
+    for sub, lin in LINEAGE_RULES:
+        if sub in s:
+            return lin
+    return s.split("/")[0] if "/" in s else s
+
+
+def _pool_summary(b_sub, B=2000, seed=0, n_strata=1):
+    """Decomposition for a sub-pool, router baseline = best single model WITHIN the
+    sub-pool (apples-to-apples across pool definitions)."""
+    N, M, k = b_sub.shape
+    phat = oracles.estimate_p_hat_raw(b_sub)
+    O_exp = oracles.oracle_expected_seed_aligned(b_sub)
+    O_repro = oracles.oracle_reproducible(phat)
+    q = phat[:, int(phat.mean(axis=0).argmax())]                 # best-single within sub-pool
+    pt, lo, hi = _bootstrap_share_ci(O_exp, O_repro, q, B=B, seed=seed)
+    cons = decompose.decompose_gap_conservative(b_sub, q, n_strata=n_strata); cons.pop("_per_query", None)
+    return {"M": int(M), "router_basis": "best-single-within-pool",
+            "oracles_mean": {"exp_seed_aligned": float(O_exp.mean()),
+                             "reproducible": float(O_repro.mean()), "router": float(q.mean())},
+            "noise_mean": float((O_exp - O_repro).mean()), "gap_mean": float((O_exp - q).mean()),
+            "noise_share": {"point": pt, "lo": lo, "hi": hi, "lower_bound_above_0": bool(lo > 0)},
+            "conservative_floor_mean": cons.get("Delta_lower_mean")}
+
+
+def pool_definitions(b, models, B=2000, seed=0, n_strata=1):
+    """noise_share under THREE pool definitions so the headline is not a composition
+    artifact: FULL, ONE-PER-LINEAGE (strongest member per pretraining lineage), and the
+    QWEN size-sweep (same-lineage-only control). Bias direction: intra-lineage redundancy
+    depresses the recoverable term and inflates noise_share, so one-per-lineage is the
+    CONSERVATIVE headline and full is an upper bound."""
+    import re
+    names = [str(m) for m in models]
+    lin = [classify_lineage(n) for n in names]
+    phat_mean = oracles.estimate_p_hat_raw(b).mean(axis=0)       # per-model mean accuracy
+    rep = {}
+    for j, L in enumerate(lin):                                  # strongest member per lineage
+        if L not in rep or phat_mean[j] > phat_mean[rep[L]]:
+            rep[L] = j
+
+    def _size(n):
+        m = re.search(r"(\d+(?:\.\d+)?)\s*b", n.lower())
+        return float(m.group(1)) if m else 0.0
+    qwen_idx = sorted([j for j, n in enumerate(names)
+                       if "qwen2.5" in n.lower() and "distill" not in n.lower()],
+                      key=lambda j: _size(names[j]))
+    defs = {"full": list(range(len(names))),
+            "one_per_lineage": sorted(rep.values()),
+            "qwen_size_sweep": qwen_idx}
+    out = {}
+    for key, idx in defs.items():
+        entry = {"models": [names[j] for j in idx], "lineages": sorted(set(lin[j] for j in idx))}
+        if len(idx) >= 2:
+            entry.update(_pool_summary(b[:, idx, :], B=B, seed=seed, n_strata=n_strata))
+        else:
+            entry["note"] = "skipped: <2 models available in this definition"
+        out[key] = entry
+    out["_note"] = ("router baseline = best-single-within-pool for comparability; lineage grouped "
+                    "by pretraining (a Qwen-distilled model counts as Qwen); one_per_lineage keeps "
+                    "the strongest member of each lineage and is the conservative headline.")
+    return out
+
+
+def family_correlation(b, models, outdir):
+    """Lineage-clustered pairwise error-correlation diagnostic on the correctness tensor +
+    an effective-pool-size (participation ratio of the correlation eigenvalues). Writes
+    family_correlation.csv. Confirms whether same-lineage models are more correlated than
+    cross-lineage ones (which would inflate noise_share)."""
+    names = [str(m) for m in models]
+    lin = [classify_lineage(n) for n in names]
+    order = sorted(range(len(names)), key=lambda j: (lin[j], names[j]))   # cluster by lineage
+    nm, lo = [names[j] for j in order], [lin[j] for j in order]
+    phat = oracles.estimate_p_hat_raw(b)[:, order]                        # N x M (clustered)
+    C = np.nan_to_num(np.corrcoef(phat.T), nan=0.0)
+    if C.ndim == 0:                                                       # M==1 guard
+        C = np.array([[1.0]])
+    w = np.clip(np.linalg.eigvalsh(C), 0, None)
+    eff = float((w.sum() ** 2) / (w ** 2).sum()) if (w ** 2).sum() else float("nan")
+    M = len(nm); win, cro = [], []
+    for i in range(M):
+        for j in range(i + 1, M):
+            (win if lo[i] == lo[j] else cro).append(C[i, j])
+    os.makedirs(outdir, exist_ok=True)
+    csvp = os.path.join(outdir, "family_correlation.csv")
+    with open(csvp, "w") as f:
+        f.write("model,lineage," + ",".join(nm) + "\n")
+        for i in range(M):
+            f.write(f"{nm[i]},{lo[i]}," + ",".join(f"{C[i, j]:.3f}" for j in range(M)) + "\n")
+    return {"order": nm, "lineage": lo,
+            "matrix": [[round(float(C[i, j]), 3) for j in range(M)] for i in range(M)],
+            "within_lineage_mean": float(np.mean(win)) if win else None,
+            "cross_lineage_mean": float(np.mean(cro)) if cro else None,
+            "effective_pool_size": eff, "n_models": M,
+            "note": "Pearson corr of per-query p_hat across queries, clustered by lineage; "
+                    "effective_pool_size = participation ratio (1=identical .. M=independent). "
+                    "CSV: family_correlation.csv"}
+
+
+def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None):
     b = np.asarray(b, float); q = np.asarray(q_router, float)
     N, M, k = b.shape
 
@@ -89,6 +201,10 @@ def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1):
         "falsifiable_best_of_K": bestofK,
         "stratified": strat,
     }
+    # pool-composition robustness (only with real model names; needs >=2 models)
+    if models is not None and M >= 2:
+        out["pool_definitions"] = pool_definitions(b, models, B=B, seed=seed, n_strata=n_strata)
+        out["family_correlation"] = family_correlation(b, models, outdir)
     os.makedirs(outdir, exist_ok=True)
     path = os.path.join(outdir, "decomposition.json")
     json.dump(out, open(path, "w"), indent=2, ensure_ascii=False)
@@ -137,9 +253,16 @@ if __name__ == "__main__":
         print(json.dumps(out, indent=2, ensure_ascii=False))
         print("\nwrote", path, "\nwrote", figp)
     elif a.npz:
-        d = np.load(a.npz)
+        d = np.load(a.npz, allow_pickle=True)
+        models = None
+        if "meta" in d.files:                       # combine.py stores {"models": [...]} order-matched to b
+            try:
+                raw = d["meta"]; raw = raw.item() if hasattr(raw, "item") else str(raw)
+                models = json.loads(raw).get("models")
+            except Exception:
+                models = None
         outdir = a.outdir or os.path.join(root, "results", "data")
-        out, path = run(d["b"], d["b_single"], d["q_router"], outdir, seed=a.seed)
+        out, path = run(d["b"], d["b_single"], d["q_router"], outdir, seed=a.seed, models=models)
         print(json.dumps(out, indent=2, ensure_ascii=False)); print("wrote", path)
     else:
         print("use --mvp (simulated smoke test) or --npz PATH (real data from 03_score.py)")

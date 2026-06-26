@@ -54,10 +54,14 @@ python scripts/detect_environment.py            # 加 --anonymize 連 hostname /
 | Qwen2.5-14B-Instruct-AWQ | awq | 1 | ~9GB | open |
 | Qwen2.5-32B-Instruct-AWQ | awq | 1 | ~20GB | open |
 | microsoft/phi-4 | fp16 | **2** | ~29GB（雙卡）| open；想用單卡改社群 4-bit |
+| allenai/OLMo-2-1124-7B-Instruct | fp16 | 1 | ~17GB | open（不同血統，全開放）|
+| 01-ai/Yi-1.5-9B-Chat | fp16 | 1 | ~20GB | open（不同血統）|
+| ibm-granite/granite-3.3-8b-instruct | fp16 | 1 | ~19GB | open（不同血統）|
 | google/gemma-2-9b-it | fp16 | 1 | ~18GB | **gated** |
 | meta-llama/Llama-3.1-8B-Instruct | fp16 | 1 | ~16GB | **gated** |
 
-> preflight 已剔除原設定中**不可用**的三個：gemma-4-12B / gemma-4-26B-A4B（多模態 image-text-to-text，非純文字）、Llama-3.2-11B-Instruct（不存在，3.2@11B 只有 Vision 版）。
+> **純文字限定**：池內全是純文字指令模型——量的是文字任務的 0/1 正確標籤，混入視覺模型會讓模態/答案抽取不一致並污染「解碼隨機性」這唯一雜訊來源。preflight 已剔除原設定中**不可用**的三個：gemma-4-12B / gemma-4-26B-A4B（多模態 image-text-to-text）、Llama-3.2-11B-Instruct（不存在，3.2@11B 只有 Vision 版）。
+> **打破 Qwen 偏重**：原池 8 個有 5 個是 Qwen 血統（3×Qwen2.5＋DeepSeek-R1-Distill-Qwen，arch=qwen2）。加入 OLMo-2 / Yi-1.5 / Granite 三個不同血統後，`04` 會自動輸出 noise_share 在**三種池**（全池 / 一血統一個 / Qwen 規模軸）＋**家族錯誤相關矩陣**（`results/data/family_correlation.csv`，含 within-vs-cross 血統相關與 effective pool size），用來證明 noise_share 不是「同家族疊出來的假象」。
 
 ## 重要前提（誠實）
 - **gate 可能不過**（疑 provider caching → A1 失敗）：04 依協定不報量級——這是設計。

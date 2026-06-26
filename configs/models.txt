@@ -12,6 +12,14 @@ Qwen/Qwen2.5-32B-Instruct-AWQ | awq | 1            # 32.8B 4bit ~20GB (one 4090,
 microsoft/phi-4 | none | 2                         # 14.7B fp16 ~29GB -> needs BOTH 4090s (tp=2)
 #   ^ if you prefer one card, swap for a community 4-bit phi-4 (e.g. *-AWQ) and set quant=awq|1
 #
+# ---- open, DISTINCT lineages (added for pool-composition robustness; apache-2.0, fp16, one card) ----
+# These break the Qwen-heavy skew: current pool is 5/8 Qwen lineage (3x Qwen2.5 + DeepSeek-R1-
+# Distill-Qwen, arch=qwen2). One model per new family lets 04 report noise_share on FULL /
+# one-per-lineage / Qwen-size-sweep pools and a lineage correlation table.
+allenai/OLMo-2-1124-7B-Instruct | none | 1         # 7.3B fp16 ~17GB  (AllenAI; fully-open data+code+weights)
+01-ai/Yi-1.5-9B-Chat | none | 1                    # 8.8B fp16 ~20GB  (01.AI)
+ibm-granite/granite-3.3-8b-instruct | none | 1     # 8.2B fp16 ~19GB  (IBM Granite)
+#
 # ---- gated: run `huggingface-cli login` AND accept the license on each model page first ----
 google/gemma-2-9b-it | none | 1                    # 9.2B fp16 ~18GB  (license:gemma)
 meta-llama/Llama-3.1-8B-Instruct | none | 1        # 8.0B fp16 ~16GB  (license:llama3.1)
