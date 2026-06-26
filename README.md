@@ -29,8 +29,19 @@ bash run_sequential.sh                    # 預設 gsm8k × 200 題、k=20
 bash run_all.sh --smoke
 ```
 
+## 環境偵測（自動執行，產生論文可用環境報告）
+`run_sequential.sh` 的**開頭與結尾**會自動跑 `scripts/detect_environment.py`，把硬體 / NVIDIA
+（driver、CUDA toolkit+runtime、cuDNN、NCCL）/ PyTorch+CUDA / 套件版本 / Git 狀態寫到
+`reports/environment/`，三種格式：`environment_report.json`（原始、重現用）、
+`environment_report.md`（可讀）、`paper_environment_summary.md`（**論文可直接貼的英文段落**，版本自動填入）。
+也可單獨跑：
+```bash
+python scripts/detect_environment.py            # 加 --anonymize 連 hostname / 使用者名都遮蔽
+```
+敏感資訊（HF token / key / 家目錄路徑）一律遮蔽，可安全 commit。
+
 ## 四、把結果傳回（給我分析）
-傳回（全部很小）：`results/`、`logs/`、`data/per_model/*.npz`。**不要傳模型權重 / HF cache**（`.gitignore` 已排除，也別手動塞）。
+傳回（全部很小）：`results/`、`logs/`、`reports/`、`data/per_model/*.npz`。**不要傳模型權重 / HF cache**（`.gitignore` 已排除，也別手動塞）。
 
 ---
 

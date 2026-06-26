@@ -11,7 +11,10 @@ cd "$(dirname "$0")"
 PY="${PYTHON:-$(command -v python3 || command -v python)}"
 BENCH="${BENCH:-gsm8k}"; N="${N:-200}"; K="${K:-20}"; SEED="${SEED:-42}"
 MIN_FREE_GB="${MIN_FREE_GB:-25}"; MODELS="${MODELS:-configs/models.txt}"
-mkdir -p logs data/per_model results/data
+mkdir -p logs data/per_model results/data reports/environment
+
+echo "[env] recording hardware/NVIDIA/software environment -> reports/environment/"
+"$PY" scripts/detect_environment.py --min-free-gb "$MIN_FREE_GB" 2>&1 | tail -4 || true
 
 free_gb(){ df -BG --output=avail . 2>/dev/null | tail -1 | tr -dc '0-9'; }
 gpu(){ command -v nvidia-smi >/dev/null && nvidia-smi --query-gpu=index,memory.used,memory.free --format=csv,noheader || echo "no nvidia-smi"; }
@@ -46,5 +49,7 @@ echo ""; echo "[combine] per-model columns -> correctness tensor"
 "$PY" scripts/combine.py --subset data/subset.json | tee logs/combine.log
 echo "[decompose] corrected oracles + gates + best-of-K"
 "$PY" scripts/04_oracles_decompose.py --npz data/processed/correctness_kxN.npz --outdir results/data | tee logs/04_decompose.log
-echo ""; echo "ALL DONE. Send back:  results/   logs/   data/per_model/*.npz  (all small)."
+echo "[env] final environment snapshot -> reports/environment_final/"
+"$PY" scripts/detect_environment.py --outdir reports/environment_final --min-free-gb "$MIN_FREE_GB" 2>&1 | tail -3 || true
+echo ""; echo "ALL DONE. Send back:  results/   logs/   reports/   data/per_model/*.npz  (all small)."
 echo "Final disk free: $(free_gb)GB"
