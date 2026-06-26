@@ -8,6 +8,10 @@ Never holds more than one model's weights; run_sequential.sh purges the HF snaps
 """
 import argparse, os, sys, json, gc
 import numpy as np
+# vLLM auto-selects FlashInfer for sampling, which JIT-compiles a CUDA kernel that needs nvcc
+# (the CUDA *toolkit*). Runtime-only GPU boxes have the driver but no toolkit -> force the native
+# PyTorch sampler. Must be set BEFORE vllm is imported. Override with VLLM_USE_FLASHINFER_SAMPLER=1.
+os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from src.generate import GenConfig, generate
 from src import score as scorer
