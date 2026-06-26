@@ -1,0 +1,32 @@
+# ---- never commit: model weights / caches / data / outputs / temp ----
+# Hugging Face caches & model weights / checkpoints
+.cache/
+huggingface/
+hf_cache/
+**/snapshots/
+**/blobs/
+*.safetensors
+*.bin
+*.gguf
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+
+# generated on the GPU VM (send these back manually, do NOT git-commit)
+data/
+results/
+logs/
+*.npz
+*.pkl
+*.parquet
+*.arrow
+
+# python / env
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.DS_Store
