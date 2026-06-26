@@ -1,0 +1,11 @@
+# generated on the GPU VM — never commit data / outputs / caches
+data/
+results/
+*.npz
+*.pkl
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.log
+.DS_Store
