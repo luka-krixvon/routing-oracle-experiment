@@ -94,6 +94,8 @@ while IFS='|' read -r repo quant tp mml; do
   idx=$((idx+1))
 done < "$MODELS"
 
+echo ""; echo "[rescore] re-score ALL per-model columns under the current scorer (so models made by an older scorer are consistent; CPU, from saved raw)"
+"$PY" scripts/rescore.py --subset data/subset.json 2>&1 | tee logs/rescore.log || true
 echo ""; echo "[combine] per-model columns -> correctness tensor"
 "$PY" scripts/combine.py --subset data/subset.json | tee logs/combine.log
 echo "[decompose] corrected oracles + gates + best-of-K"
