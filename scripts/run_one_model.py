@@ -66,25 +66,36 @@ def main():
     N, k = len(subset), a.k
     b_m = np.zeros((N, k), dtype=np.int8); greedy_m = np.zeros(N, dtype=np.int8)
     Y_m = np.empty((N, k), dtype=object); gold_m = np.empty(N, dtype=object)
-    samples_m = np.empty((N, k), dtype=object)              # raw text, kept so a scoring fix re-scores on CPU
+    samples_m = np.empty((N, k), dtype=object); greedy_txt = np.empty(N, dtype=object)
     for i, (q, g) in enumerate(zip(subset, gens)):
-        gold, task = q.get("gold"), q.get("task", "exact"); gold_m[i] = str(gold)
+        gold_m[i] = str(q.get("gold"))
         for j, s in enumerate(g["samples"][:k]):
-            s = s or ""
-            samples_m[i, j] = s
-            b_m[i, j] = scorer.exact_match(s, gold, task)
-            Y_m[i, j] = scorer.extract_answer(s, task)      # canonical label for O^agg
-        if g.get("greedy") is not None:
-            greedy_m[i] = scorer.exact_match(g["greedy"], gold, task)
+            samples_m[i, j] = s or ""
+        greedy_txt[i] = g.get("greedy")
+    ids = np.array([q["id"] for q in subset])
+    # SAVE RAW FIRST: generation is expensive; a scoring bug must never throw it away.
+    raw = out[:-4] + "_raw.npz" if out.endswith(".npz") else out + "_raw.npz"
+    np.savez_compressed(raw, samples=samples_m, greedy=greedy_txt, ids=ids, gold=gold_m, model=a.model)
+    # score (robust): a single bad draw scores 0 / label None, it can never crash the whole model.
+    def _safe(fn, *aa):
+        try:
+            return fn(*aa)
+        except Exception:
+            return None
+    for i, q in enumerate(subset):
+        gold, task = q.get("gold"), q.get("task", "exact")
+        for j in range(k):
+            s = samples_m[i, j] or ""
+            b_m[i, j] = _safe(scorer.exact_match, s, gold, task) or 0
+            Y_m[i, j] = _safe(scorer.extract_answer, s, task)
+        if greedy_txt[i] is not None:
+            greedy_m[i] = _safe(scorer.exact_match, greedy_txt[i], gold, task) or 0
     # main (tiny) column: correctness + labels + run config -> combine.py / 04
     np.savez(out, b_m=b_m, greedy_m=greedy_m, Y_m=Y_m, gold=gold_m,
-             ids=np.array([q["id"] for q in subset]), model=a.model, k=k,
+             ids=ids, model=a.model, k=k,
              seed=a.seed, temperature=a.temperature, top_p=a.top_p, max_tokens=a.max_tokens,
              max_model_len=max_model_len, quantization=str(a.quantization),
              tensor_parallel_size=a.tensor_parallel_size)
-    # raw-text sidecar (compressed, separate file) so a scoring bug never forces a GPU re-run
-    raw = out[:-4] + "_raw.npz" if out.endswith(".npz") else out + "_raw.npz"
-    np.savez_compressed(raw, samples=samples_m, ids=np.array([q["id"] for q in subset]), model=a.model)
     if b_m.mean() == 0:
         print(f"[WARN] {a.model}: ALL-ZERO correctness -- check scorer/prompt/extraction before trusting this run!")
     print(f"[done] {a.model}: mean single-draw acc={b_m[:,0].mean():.3f}, mean p_hat={b_m.mean():.3f} -> {out} (+raw)")

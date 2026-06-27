@@ -9,7 +9,7 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 PY="${PYTHON:-$(command -v python3 || command -v python)}"
-BENCH="${BENCH:-gsm8k}"; N="${N:-200}"; K="${K:-20}"; SEED="${SEED:-42}"
+BENCH="${BENCH:-gsm8k}"; N="${N:-200}"; K="${K:-20}"; SEED="${SEED:-42}"; MAX_TOKENS="${MAX_TOKENS:-2048}"
 MIN_FREE_GB="${MIN_FREE_GB:-35}"; MODELS="${MODELS:-configs/models.txt}"   # >= largest model (phi-4 ~29GB) + margin
 mkdir -p logs data/per_model results/data reports/environment
 
@@ -83,7 +83,7 @@ while IFS='|' read -r repo quant tp mml; do
   # 1-5) download + generate + score + save column + free GPU (all inside this subprocess).
   # ROE_RUN_TOKEN tags this process and every vLLM worker it spawns, so teardown can find+free them.
   if ROE_RUN_TOKEN="$RUN_TOKEN" "$PY" scripts/run_one_model.py --model "$repo" --idx "$idx" --subset data/subset.json \
-        --k "$K" --seed "$SEED" --tensor_parallel_size "$tp" "${qarg[@]}" "${mmlarg[@]}" 2>&1 | tee "logs/m${idx}_$(echo "$repo"|tr / _).log"; then
+        --k "$K" --seed "$SEED" --max_tokens "$MAX_TOKENS" --tensor_parallel_size "$tp" "${qarg[@]}" "${mmlarg[@]}" 2>&1 | tee "logs/m${idx}_$(echo "$repo"|tr / _).log"; then
     # 6-8) evict this model's weights from the HF cache, re-check
     "$PY" scripts/cleanup_hf.py --model "$repo" 2>&1 | tee -a "logs/m${idx}_$(echo "$repo"|tr / _).log"
     echo "after cleanup -> disk free: $(free_gb)GB | $(gpu | head -2)"

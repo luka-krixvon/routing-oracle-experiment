@@ -141,6 +141,9 @@ def test_score_exact_match():
     assert score.exact_match("Option A is wrong, so the answer is C.", "C", "mmlu_pro") == 1
     assert score.exact_match("Choice A... but B", "B", "mmlu_pro") == 1
     assert score.exact_match("answer: D", "C", "mmlu_pro") == 0
+    # huge digit run overflows float to inf -> must NOT crash (regression: round(inf) OverflowError)
+    assert score.exact_match("#### " + "9" * 400, "5", "gsm8k") == 0
+    assert score.extract_answer("9" * 400, "gsm8k") is None
 
 
 if __name__ == "__main__":

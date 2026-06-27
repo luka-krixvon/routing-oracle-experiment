@@ -8,6 +8,7 @@ can persist labels Y for the verifier-free aggregation oracle O^agg (Lemma aggfl
 and `exact_match` is just `extract_answer(pred)==extract_answer(gold)`.
 """
 from __future__ import annotations
+import math
 import re
 
 _MATH = ("gsm8k", "math500", "mathbench")
@@ -55,12 +56,16 @@ def _math_number(s: str):
 
 
 def _norm_number(n):
-    """Canonicalize a numeric string so '72', '72.0', '72.' all map to the same label."""
+    """Canonicalize a numeric string so '72', '72.0', '72.' all map to the same label.
+    Guards huge digit strings that overflow float to inf/nan (e.g. a reasoning model
+    emitting a 400-digit run) -> treat as 'no valid answer', never crash on round(inf)."""
     if n is None:
         return None
     try:
         f = float(n.rstrip("."))
-    except ValueError:
+    except (ValueError, OverflowError):
+        return None
+    if not math.isfinite(f):
         return None
     return str(int(round(f))) if abs(f - round(f)) < 1e-9 else repr(f)
 
