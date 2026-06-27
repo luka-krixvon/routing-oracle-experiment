@@ -41,7 +41,8 @@ def judge_score(prediction: str, gold: str, judge_model: str) -> int:
 
 
 def _last_number(s: str):
-    nums = re.findall(r"-?\d+\.?\d*", s.replace(",", ""))
+    # optional exponent so '1e3' parses as one token (->1000), not split into '1','3'
+    nums = re.findall(r"-?\d+\.?\d*(?:[eE][-+]?\d+)?", s.replace(",", ""))
     return nums[-1] if nums else None
 
 

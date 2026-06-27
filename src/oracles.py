@@ -121,13 +121,21 @@ def oracle_agg_from_labels(Y: np.ndarray, gold: np.ndarray) -> np.ndarray:
     NOTE 2 -- O^agg is genuinely NOT computable from the correctness tensor b alone;
     it needs the answer labels Y. Scoring (03_score) must therefore persist labels,
     not only correctness counts."""
+    from collections import Counter
     Y = np.asarray(Y); gold = np.asarray(gold)
     assert Y.ndim == 3, "expected (N, M, k) label ids"
     N = Y.shape[0]
     out = np.empty(N, dtype=float)
     for i in range(N):
-        vals, counts = np.unique(Y[i].reshape(-1), return_counts=True)
-        winner = vals[int(np.argmax(counts))]
+        # Drop unparseable draws (extract_answer -> None): a verifier-free aggregator
+        # must OUTPUT a produced label, and None is "no answer". Counter avoids
+        # np.unique's internal sort, which raises TypeError on mixed None/str object
+        # arrays ("'<' not supported between instances of 'NoneType' and 'str'").
+        labels = [v for v in Y[i].reshape(-1).tolist() if v is not None]
+        if not labels:
+            out[i] = 0.0           # no parseable label anywhere -> vote produces nothing -> wrong
+            continue
+        winner = Counter(labels).most_common(1)[0][0]
         out[i] = float(winner == gold[i])
     return out
 

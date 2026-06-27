@@ -129,6 +129,16 @@ def test_agg_from_labels_plurality():
     assert out[0] == 1.0 and out[1] == 0.0
 
 
+def test_agg_from_labels_none_safe():
+    # Y is dtype=object with None (unparseable draws) -> must not crash on np.unique sort.
+    Y = np.array([[["72", None, "72"], [None, "72", "5"]],          # plurality 72 == gold -> 1
+                  [[None, None, None], [None, None, None]]],          # all None -> 0
+                 dtype=object)
+    gold = np.array(["72", "72"], dtype=object)
+    out = oracles.oracle_agg_from_labels(Y, gold)
+    assert out[0] == 1.0 and out[1] == 0.0
+
+
 def test_score_exact_match():
     """Guard the live scorers (the data-producing layer): GSM8K numeric normalization
     and MMLU final-letter extraction -- the bugs that silently deflate p_hat."""
@@ -144,6 +154,8 @@ def test_score_exact_match():
     # huge digit run overflows float to inf -> must NOT crash (regression: round(inf) OverflowError)
     assert score.exact_match("#### " + "9" * 400, "5", "gsm8k") == 0
     assert score.extract_answer("9" * 400, "gsm8k") is None
+    assert score.extract_answer("1e400", "gsm8k") is None        # inf-overflow via exponent -> None
+    assert score.exact_match("the answer is 1e3", "1000", "gsm8k") == 1  # sci-notation parses as one number
 
 
 if __name__ == "__main__":

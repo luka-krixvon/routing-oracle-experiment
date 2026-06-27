@@ -13,8 +13,20 @@ Run modes:
   --npz PATH      : real run on a correctness_kxN.npz produced by 03_score.py
 Outputs results/decomposition.json (+ results/mvp_decomposition.png for --mvp).
 """
-import argparse, os, sys, json
+import argparse, os, sys, json, math
 import numpy as np
+
+
+def _clean(o):
+    """Recursively map non-finite floats (NaN/inf, e.g. a 0/0 ratio on a degenerate
+    sub-pool) to None so decomposition.json is always RFC-8259-valid JSON."""
+    if isinstance(o, float):
+        return o if math.isfinite(o) else None
+    if isinstance(o, dict):
+        return {k: _clean(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_clean(v) for v in o]
+    return o
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from src import oracles, decompose, stats, simulate
 
@@ -174,7 +186,7 @@ def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None, 
                                 "reproducible": float(O_repro.mean()), "router": float(q.mean())},
                "note": "A pre-gate failed (known-p TV and/or per-draw independence vs A1/provider caching); "
                        "per protocol the magnitude study reports NO decomposition/noise_share/best-of-K."}
-        json.dump(out, open(path, "w"), indent=2, ensure_ascii=False)
+        json.dump(_clean(out), open(path, "w"), indent=2, ensure_ascii=False, allow_nan=False)
         return out, path
 
     main = decompose.decompose_gap(phat, q, O_exp=O_exp); main.pop("_per_query", None)
@@ -229,7 +241,7 @@ def run(b, b_single, q_router, outdir, B=2000, seed=0, n_strata=1, models=None, 
     if models is not None and M >= 2:
         out["pool_definitions"] = pool_definitions(b, models, B=B, seed=seed, n_strata=n_strata)
         out["family_correlation"] = family_correlation(b, models, outdir)
-    json.dump(out, open(path, "w"), indent=2, ensure_ascii=False)
+    json.dump(_clean(out), open(path, "w"), indent=2, ensure_ascii=False, allow_nan=False)
     return out, path
 
 

@@ -20,11 +20,15 @@ def main():
     pmdir = a.per_model or os.path.join(root, "data", "per_model")
     out = a.out or os.path.join(root, "data", "processed", "correctness_kxN.npz")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    files = sorted(glob.glob(os.path.join(pmdir, "m*_*.npz")),
+    files = sorted([f for f in glob.glob(os.path.join(pmdir, "m*_*.npz"))
+                    if not f.endswith("_raw.npz")],          # skip the raw-text sidecars
                    key=lambda f: int(os.path.basename(f).split("_")[0][1:]))
     if not files:
         sys.exit(f"no per-model npz in {pmdir}; run run_one_model.py first")
     cols = [np.load(f, allow_pickle=True) for f in files]
+    shapes = {os.path.basename(f): tuple(c["b_m"].shape) for f, c in zip(files, cols)}
+    if len(set(shapes.values())) > 1:                        # fail clearly instead of a generic np.stack error
+        sys.exit(f"inconsistent (N,k) across per-model files: {shapes}")
     N, k = cols[0]["b_m"].shape; M = len(files)
     b = np.stack([c["b_m"] for c in cols], axis=1).astype(np.int8)        # (N, M, k)
     greedy = np.stack([c["greedy_m"] for c in cols], axis=1).astype(np.int8)
