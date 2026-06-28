@@ -40,21 +40,26 @@ def _gen_vllm(prompts, model_id, cfg: GenConfig, llm=None, **kw):
     from vllm import LLM, SamplingParams
     if llm is None:
         llm = LLM(model=model_id, **kw)
+    # Apply each model's CHAT TEMPLATE via llm.chat() -- feeding raw strings to
+    # llm.generate() skips the template, so template-sensitive instruct models (e.g.
+    # phi-4) ignore the question and ramble off-topic. chat() wraps each prompt as a
+    # user turn and applies the tokenizer's chat template (add_generation_prompt).
+    msgs = [[{"role": "user", "content": p}] for p in prompts]
     if cfg.seed_alignment:
         res = [{"samples": [None] * cfg.k, "greedy": None} for _ in prompts]
         for j in range(cfg.k):
             sp = SamplingParams(n=1, temperature=cfg.temperature, top_p=cfg.top_p,
                                 max_tokens=cfg.max_tokens, seed=cfg.root_seed + j)
-            for i, out in enumerate(llm.generate(prompts, sp)):
+            for i, out in enumerate(llm.chat(msgs, sampling_params=sp, use_tqdm=True)):
                 res[i]["samples"][j] = out.outputs[0].text
     else:
         sp = SamplingParams(n=cfg.k, temperature=cfg.temperature,
                             top_p=cfg.top_p, max_tokens=cfg.max_tokens)
         res = [{"samples": [o.text for o in out.outputs], "greedy": None}
-               for out in llm.generate(prompts, sp)]
+               for out in llm.chat(msgs, sampling_params=sp, use_tqdm=True)]
     if cfg.add_greedy:
         gp = SamplingParams(n=1, temperature=0.0, max_tokens=cfg.max_tokens)
-        for i, out in enumerate(llm.generate(prompts, gp)):
+        for i, out in enumerate(llm.chat(msgs, sampling_params=gp, use_tqdm=True)):
             res[i]["greedy"] = out.outputs[0].text
     return res
 
