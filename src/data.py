@@ -43,8 +43,17 @@ def load_benchmark(name: str = "gsm8k", split: str = "test", n: int | None = Non
                       "(A, B, C, or D) of the correct choice.")
             recs.append({"id": f"mmlu-{i}", "prompt": prompt, "gold": letters[ex["answer"]],
                          "task": "mmlu_pro"})
+    elif name == "math500":
+        # 500 hard competition-math problems (free-form). Much less saturated than GSM8K,
+        # so the rare-correct / thin-support stratum is large -> shows the noise-dominant regime.
+        ds = load_dataset("HuggingFaceH4/MATH-500", split="test")   # only split
+        for i, ex in enumerate(ds):
+            prompt = (ex["problem"].strip() +
+                      "\n\nPlease reason step by step, and put your final answer inside \\boxed{}.")
+            recs.append({"id": f"math500-{i}", "prompt": prompt, "gold": ex["answer"],
+                         "task": "math500"})
     else:
-        raise ValueError(f"unknown benchmark {name!r} (supported: gsm8k, mmlu; "
+        raise ValueError(f"unknown benchmark {name!r} (supported: gsm8k, mmlu, math500; "
                          "for RouterBench/LLMRouterBench use load_raw_correctness)")
     if n is not None and n < len(recs):
         idx = rng.choice(len(recs), n, replace=False)

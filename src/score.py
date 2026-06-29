@@ -11,7 +11,8 @@ from __future__ import annotations
 import math
 import re
 
-_MATH = ("gsm8k", "math500", "mathbench")
+_NUM = ("gsm8k",)                              # numeric, '#### <n>' marker
+_BOXED = ("math500", "mathbench", "math")      # free-form LaTeX, '\boxed{}' answer
 _MC = ("mmlu_pro", "gpqa", "mmlu")
 _CODE = ("mbpp", "humaneval", "livecodebench")
 
@@ -19,8 +20,10 @@ _CODE = ("mbpp", "humaneval", "livecodebench")
 def extract_answer(s: str, task: str):
     """Canonical answer label for `s` under `task` (None if not found)."""
     s = str(s)
-    if task in _MATH:
+    if task in _NUM:
         return _norm_number(_math_number(s))
+    if task in _BOXED:
+        return _norm_math(_extract_boxed(s))   # last \boxed{...}, normalized
     if task in _MC:
         return _last_choice(s)
     return s.strip()                          # code / generic: raw text
@@ -69,6 +72,62 @@ def _norm_number(n):
     if not math.isfinite(f):
         return None
     return str(int(round(f))) if abs(f - round(f)) < 1e-9 else repr(f)
+
+
+def _extract_boxed(s: str):
+    """Content of the LAST \\boxed{...} (balanced braces). No \\boxed (the bare gold,
+    or a short unboxed prediction) -> the whole stripped string, so gold and prediction
+    normalize comparably."""
+    s = str(s)
+    idx = s.rfind("\\boxed")
+    if idx == -1:
+        return s.strip()
+    i = idx + len("\\boxed")
+    while i < len(s) and s[i] == " ":
+        i += 1
+    if i >= len(s) or s[i] != "{":
+        return s.strip()
+    depth, start = 0, i
+    for j in range(i, len(s)):
+        if s[j] == "{":
+            depth += 1
+        elif s[j] == "}":
+            depth -= 1
+            if depth == 0:
+                return s[start + 1:j]
+    return s[start + 1:].strip()              # unbalanced -> take the rest
+
+
+def _norm_math(s):
+    """Canonicalize a LaTeX math answer to a comparable string. Handles the common
+    MATH-500 forms (\\frac, \\sqrt, \\text, \\left/\\right, spacing, degrees/%); consistent
+    across models so equality is a reliable 0/1 (not a full symbolic check). Idempotent."""
+    if s is None:
+        return None
+    s = str(s).strip()
+    if not s:
+        return None
+    s = s.replace("$", "")
+    s = re.sub(r"\\(?:text|mathrm|mathbf|mbox|textbf|textit|textrm|operatorname)\s*\{([^{}]*)\}", r"\1", s)
+    for tok in ("\\left", "\\right", "\\!", "\\,", "\\;", "\\:", "\\quad", "\\qquad", "\\ "):
+        s = s.replace(tok, "")
+    s = s.replace("\\dfrac", "\\frac").replace("\\tfrac", "\\frac")
+    for _ in range(8):                         # \frac{a}{b} -> a/b (stacked/nested simple)
+        s2 = re.sub(r"\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}", r"\1/\2", s)
+        if s2 == s:
+            break
+        s = s2
+    s = re.sub(r"\\sqrt\s*\{([^{}]+)\}", r"sqrt(\1)", s)
+    s = s.replace("^\\circ", "").replace("^{\\circ}", "").replace("\\%", "").replace("%", "")
+    s = s.replace("\\cdot", "*").replace("\\times", "*")
+    s = re.sub(r"\\([a-zA-Z]+)", r"\1", s)     # \pi -> pi, \theta -> theta (consistent)
+    s = s.replace("{", "").replace("}", "")
+    s = re.sub(r"\s+", "", s)
+    s = s.replace(",", "")
+    s = s.rstrip(".")
+    if s.startswith("+"):
+        s = s[1:]
+    return s or None
 
 
 def _last_choice(s: str):

@@ -42,14 +42,16 @@ def main():
         samples = r["samples"]; ids = [str(x) for x in r["ids"]]
         N, k = samples.shape
         b = np.zeros((N, k), dtype=np.int8); Y = np.empty((N, k), dtype=object)
+        gold_arr = np.empty(N, dtype=object)
         for i, qid in enumerate(ids):
             q = by_id.get(qid, {}); gold, task = q.get("gold"), q.get("task", "exact")
+            gold_arr[i] = _safe(scorer.extract_answer, str(gold), task)   # canonical gold
             for j in range(k):
                 s = samples[i, j] or ""
                 b[i, j] = _safe(scorer.exact_match, s, gold, task) or 0
                 Y[i, j] = _safe(scorer.extract_answer, s, task)
         old_p = float(np.asarray(d["b_m"], float).mean()); new_p = float(b.mean())
-        d["b_m"] = b; d["Y_m"] = Y
+        d["b_m"] = b; d["Y_m"] = Y; d["gold"] = gold_arr
         if "greedy" in r.files:                                   # re-score greedy too if raw kept it
             g = r["greedy"]; gm = np.zeros(N, dtype=np.int8)
             for i, qid in enumerate(ids):

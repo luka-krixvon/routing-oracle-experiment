@@ -68,7 +68,10 @@ def main():
     Y_m = np.empty((N, k), dtype=object); gold_m = np.empty(N, dtype=object)
     samples_m = np.empty((N, k), dtype=object); greedy_txt = np.empty(N, dtype=object)
     for i, (q, g) in enumerate(zip(subset, gens)):
-        gold_m[i] = str(q.get("gold"))
+        try:                                   # store the CANONICAL (normalized) gold so the
+            gold_m[i] = scorer.extract_answer(str(q.get("gold")), q.get("task", "exact"))
+        except Exception:                      # O^agg vote (Y labels are normalized) compares like-for-like
+            gold_m[i] = str(q.get("gold"))
         for j, s in enumerate(g["samples"][:k]):
             samples_m[i, j] = s or ""
         greedy_txt[i] = g.get("greedy")
