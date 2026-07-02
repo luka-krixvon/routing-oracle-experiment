@@ -51,14 +51,20 @@ tensor we form three per-query ceilings and split the router-to-oracle gap:
 
 ```mermaid
 flowchart TD
-    T["k seed-aligned draws per (query, model)<br/>b[i,m,j] at T=0.2 (assumption A8)"] --> PE["p_hat[i,m] = (# correct) / k"]
-    T --> OE["O_exp = mean_j ( max_m b[i,m,j] )<br/>single-draw ceiling — what benchmarks report"]
-    PE --> OR["O_repro = max_m p_hat[i,m]<br/>reproducible / committable ceiling"]
-    PE --> OA["O_agg = majority vote<br/>verifier-free aggregation ceiling"]
-    OE --> DEC{"Gap decomposition<br/>G = G_rec + G_noise"}
+    T["<b>correctness tensor</b>  b[i,m,j] ∈ {0,1}<br/>shape (N, M, k) — k seed-aligned draws @ T=0.2 (A8)<br/><i>data/processed/correctness_kxN.npz</i>"]
+    T --> PE["p̂[i,m] = (1/k) Σ_j b[i,m,j]<br/>raw frequency (Beta(1,1) posterior for CIs only)"]
+    T --> OE["Ô_exp[i] = (1/k) Σ_j max_m b[i,m,j]<br/>seed-aligned estimator — unbiased under A1 alone,<br/>no cross-model independence assumed"]
+    PE --> OR["Ô_repro[i] = max_m p̂[i,m]<br/>reproducible / committable ceiling"]
+    PE --> OA["Ô_agg[i] = majority vote over k draws<br/>verifier-free aggregation ceiling"]
+    OE --> DEC{"exact identity<br/>G = G_rec + G_noise"}
     OR --> DEC
-    DEC --> GR["G_rec — recoverable<br/>specialist advantage (the majority)"]
-    DEC --> GN["G_noise = O_exp - O_repro<br/>single-draw label noise:<br/>no single-commit router can recover it"]
+    DEC --> GR["G_rec = Ō_repro − q̄_r<br/>recoverable specialist advantage"]
+    DEC --> GN["G_noise = Ō_exp − Ō_repro ≥ 0<br/>single-draw label noise — unreachable<br/>by any single-commit router"]
+    OA -.->|"Δ_know / Δ_guess split"| DEC
+    classDef data fill:#eaf1f8,stroke:#3b6ea5,stroke-width:2px;
+    classDef est fill:#f6f8fa,stroke:#57606a;
+    classDef out fill:#fdf3e7,stroke:#b46a1e;
+    class T data; class PE,OE,OR,OA est; class DEC,GR,GN out;
 ```
 
 The proved ordering is **`O_repro <= O_agg <= O_exp`**. `G_noise` is the part of
@@ -93,16 +99,21 @@ skipped) and leaves the VM clean on exit (including on Ctrl-C).
 
 ```mermaid
 flowchart TD
-    S["01_make_subset.py<br/>GSM8K / MATH x N  ->  data/subset.json"] --> ENV["detect_environment.py<br/>records hardware / CUDA / versions"]
-    ENV --> L{"for each model in configs/models.txt"}
-    L --> G["disk guard:<br/>free &lt; MIN_FREE_GB ?  -> stop safely"]
-    G --> SUB["run_one_model.py (isolated subprocess)<br/>download -> generate k draws @ T=0.2, seed-aligned<br/>-> exact-match score -> save data/per_model/m*.npz"]
-    SUB --> EV["cleanup_hf.py<br/>evict weights from HF cache (safe API, never rm -rf)<br/>+ free GPU (empty_cache / ipc_collect)"]
+    S["<b>[01]</b> scripts/01_make_subset.py<br/>benchmark × N, stratified (40% rare-correct)<br/>→ <i>data/subset.json</i>"] --> ENV["scripts/detect_environment.py<br/>HW / driver / CUDA / lib versions<br/>→ <i>reports/environment/</i>"]
+    ENV --> L{"next model in<br/>configs/models.txt ?"}
+    L -->|yes| G{"disk free ≥ MIN_FREE_GB (35)?"}
+    G -->|no| STOP["safe stop — nothing corrupted,<br/>rerun resumes from the next model"]
+    G -->|yes| SUB["<b>[02+03]</b> scripts/run_one_model.py  (isolated subprocess)<br/>download → k seed-aligned draws @ T=0.2 (vLLM)<br/>→ exact-match score → <i>data/per_model/m*.npz</i>"]
+    SUB --> EV["scripts/cleanup_hf.py<br/>evict weights via huggingface_hub API (never rm -rf)<br/>+ del model; torch.cuda.empty_cache(); ipc_collect()"]
     EV --> L
-    L -->|all models done| RS["rescore.py  ->  combine.py<br/>assemble (N, M, k) correctness tensor<br/>-> data/processed/correctness_kxN.npz"]
-    RS --> D["04_oracles_decompose.py<br/>corrected oracles + gates + best-of-K + decomposition"]
-    D --> OUT["results/data/decomposition.json<br/>(+ *.png, family_correlation.csv)"]
-    OUT --> ENV2["detect_environment.py (final snapshot)<br/>reports/environment_final/"]
+    L -->|all done| RS["scripts/rescore.py → scripts/combine.py<br/>stack per-model columns → tensor (N, M, k)<br/>→ <i>data/processed/correctness_kxN.npz</i>"]
+    RS --> D["<b>[04]</b> scripts/04_oracles_decompose.py<br/>estimators + gates + best-of-K + decomposition"]
+    D --> OUT["<i>results/data/decomposition.json</i><br/><i>results/data/family_correlation.csv</i> + figures"]
+    OUT --> ENV2["detect_environment.py (final snapshot)<br/>→ <i>reports/environment_final/</i>"]
+    classDef stage fill:#eaf1f8,stroke:#3b6ea5,stroke-width:2px;
+    classDef guard fill:#fdf3e7,stroke:#b46a1e;
+    classDef io fill:#f6f8fa,stroke:#57606a;
+    class S,SUB,RS,D stage; class L,G,STOP guard; class ENV,EV,OUT,ENV2 io;
 ```
 
 The tiny per-model columns (`data/per_model/*.npz`) are what make the run
@@ -120,15 +131,20 @@ rather than being explained away.
 
 ```mermaid
 flowchart TD
-    C["correctness tensor b[i,m,j]"] --> KS["known-p gate (KS):<br/>simulate under p_hat; the distribution of<br/># correct models must match the observed one"]
-    C --> IND["independence gate:<br/>over-dispersion of counts vs p(1-p)/k<br/>tests A1 against provider caching"]
+    C["correctness tensor  b[i,m,j]  (N, M, k)"] --> KS["<b>gate 1 — known-p simulation (KS)</b><br/>simulate under p̂; #correct-models distribution<br/>must match observed:  KS p ≥ 0.05"]
+    C --> IND["<b>gate 2 — per-draw independence (A1)</b><br/>over-dispersion Var_obs / [p(1−p)/k] ≤ 1.25<br/>runs-test p ≥ 0.01  (vs provider caching)"]
     KS --> P{"both gates pass?"}
     IND --> P
-    P -->|no| BLOCK["report NO magnitudes (by design)"]
-    P -->|yes| BOK["best-of-K, matched budget:<br/>K draws of the pre-committed best model<br/>vs the envelope O_exp,perp"]
-    BOK --> PASS{"best_of_K &gt;= O_exp,perp - slack ?"}
-    PASS -->|yes| REPORT["report noise share + decomposition<br/>across 3 pools + family-correlation matrix"]
-    PASS -->|no| A1["conclude A1 violated (caching / dependence),<br/>NOT that the theorem is wrong"]
+    P -->|no| BLOCK["report <b>no</b> magnitudes — by protocol,<br/>not a fallback"]
+    P -->|yes| BOK["<b>falsifiable test — best-of-K, matched budget</b><br/>K draws of the pre-committed best model<br/>(argmax_m mean_i p̂[i,m], chosen in advance)"]
+    BOK --> PASS{"best-of-K ≥ Ô_exp,⊥ − 0.01 ?"}
+    PASS -->|yes| REPORT["report G_noise / G across 3 pool definitions<br/>+ family-correlation matrix + effective pool size"]
+    PASS -->|no| A1["conclude A1 violated (caching / dependence)<br/>— the theorem is not at issue"]
+    classDef gate fill:#fdf3e7,stroke:#b46a1e;
+    classDef ok fill:#eaf4ea,stroke:#2f7d32;
+    classDef bad fill:#faeaea,stroke:#a33a3a;
+    classDef io fill:#f6f8fa,stroke:#57606a;
+    class KS,IND,BOK gate; class P,PASS io; class REPORT ok; class BLOCK,A1 bad; class C io;
 ```
 
 To defend against the "same-family redundancy inflates `G_noise`" objection, the
