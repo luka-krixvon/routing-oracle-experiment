@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this code or the findings, please cite the preprint."
+title: "How Much of the Routing Gap Is Real? Decomposing the Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw Label Noise"
+type: software
+authors:
+  - family-names: Chen
+    given-names: Teng-Ruei
+    affiliation: "Institute of Bioinformatics and Systems Biology, National Yang Ming Chiao Tung University, Hsinchu 300, Taiwan; and Krixvon AI, Taiwan"
+    email: luka@krixvon.com
+repository-code: "https://github.com/luka-krixvon/routing-oracle-experiment"
+license: MIT
+# version: v1.0            # set on tagged release
+# date-released: 2026-XX-XX
+preferred-citation:
+  type: article
+  title: "How Much of the Routing Gap Is Real? Decomposing the Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw Label Noise"
+  authors:
+    - family-names: Chen
+      given-names: Teng-Ruei
+  year: 2026
+  # arXiv id to be filled once the preprint is posted:
+  # url: "https://arxiv.org/abs/XXXX.XXXXX"
+  notes: "Preprint (V1). arXiv identifier to be added after posting."
