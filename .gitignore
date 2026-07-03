@@ -30,3 +30,7 @@ venv/
 env/
 .ipynb_checkpoints/
 .DS_Store
+
+# ---- published paper artifacts (small; reproduce the tables from committed data) — DO commit ----
+!artifacts/
+!artifacts/**

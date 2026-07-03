@@ -1,0 +1,119 @@
+{
+  "generated_utc": "2026-07-01T02:51:11+00:00",
+  "hardware": {
+    "hostname": "gpu-worker-A",
+    "os": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+    "os_release": "Ubuntu 24.04.4 LTS",
+    "cpu_model": "AMD EPYC 7J13 64-Core Processor",
+    "cpu_cores_physical": 24,
+    "cpu_threads_logical": 24,
+    "ram_total": "62.7 GB",
+    "disk_total": "153.9 GB",
+    "disk_used": "109.8 GB",
+    "disk_free": "44.2 GB",
+    "disk_free_gb": 47.4,
+    "project_dir_size": "246.4 MB",
+    "hf_cache_size": "3.2M",
+    "gpus": [
+      {
+        "index": "0",
+        "name": "NVIDIA GeForce RTX 4090",
+        "memory_total": "24564 MiB",
+        "memory_used": "0 MiB",
+        "temperature_C": "53",
+        "power": "72.84 W",
+        "pci_bus_id": "00000000:01:00.0",
+        "compute_capability": "8.9"
+      },
+      {
+        "index": "1",
+        "name": "NVIDIA GeForce RTX 4090",
+        "memory_total": "24564 MiB",
+        "memory_used": "0 MiB",
+        "temperature_C": "39",
+        "power": "68.91 W",
+        "pci_bus_id": "00000000:02:00.0",
+        "compute_capability": "8.9"
+      }
+    ]
+  },
+  "nvidia": {
+    "driver_version": "580.159.03",
+    "cuda_toolkit": null,
+    "cuda_runtime": "13.0",
+    "cuda_available": true,
+    "cudnn_version": 91900,
+    "nccl_version": "2.28.9",
+    "torch_detects_cuda": true,
+    "torch_cuda_build": "13.0",
+    "cudnn_backend_enabled": true,
+    "device_names": [
+      "NVIDIA GeForce RTX 4090",
+      "NVIDIA GeForce RTX 4090"
+    ],
+    "compute_capabilities": [
+      "8.9",
+      "8.9"
+    ],
+    "nvidia_smi_summary": "Wed Jul  1 02:51:17 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4090        Off |   00000000:01:00.0 Off |                  Off |\n| 30%   53C    P0             72W /  450W |       0MiB /  24564MiB |      2%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+"
+  },
+  "python_ml": {
+    "python_version": "3.12.3",
+    "python_executable": "~/roe-venv/bin/python3",
+    "pip_version": "26.1.2",
+    "conda_env": null,
+    "packages": {
+      "torch": "2.11.0",
+      "torchvision": "0.26.0",
+      "torchaudio": "2.11.0",
+      "transformers": "5.12.1",
+      "datasets": "5.0.0",
+      "huggingface_hub": "1.21.0",
+      "tokenizers": "0.22.2",
+      "safetensors": "0.8.0",
+      "sentencepiece": "0.2.1",
+      "vllm": "0.23.0",
+      "numpy": "2.3.5",
+      "pandas": "3.0.3",
+      "scipy": "1.18.0",
+      "matplotlib": "3.11.0",
+      "statsmodels": "0.14.6"
+    },
+    "packages_missing": [
+      "accelerate",
+      "bitsandbytes",
+      "flash-attn",
+      "flash_attn",
+      "xformers",
+      "scikit-learn",
+      "seaborn"
+    ]
+  },
+  "runtime": {
+    "cwd": "~/routing-oracle-experiment",
+    "git_remote": "https://github.com/luka-krixvon/routing-oracle-experiment.git",
+    "git_branch": "main",
+    "git_commit": "c137cf7cfbcc56ea1187be846ee61a20bf056786",
+    "git_uncommitted_changes": true,
+    "gitignore_present": true,
+    "dirs_present": {
+      "reports": true,
+      "results": true,
+      "logs": true,
+      "data": true,
+      "paper/figs": false,
+      "configs": true,
+      "scripts": true,
+      "src": true
+    },
+    "hf_cache_path": "~/.cache/huggingface",
+    "env_vars": {
+      "HF_TOKEN": "**** (masked)"
+    },
+    "hf_token_present": "present (masked)",
+    "cuda_visible_devices": "(unset = all)",
+    "disk_free_gb": 47.4,
+    "disk_enough_to_start": true,
+    "min_free_gb_threshold": 35.0
+  }
+}

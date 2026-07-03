@@ -1,0 +1,12 @@
+model,lineage,google/gemma-2-9b-it,ibm-granite/granite-3.3-8b-instruct,meta-llama/Llama-3.1-8B-Instruct,mistralai/Mistral-7B-Instruct-v0.3,allenai/OLMo-2-1124-7B-Instruct,microsoft/phi-4,Qwen/Qwen2.5-14B-Instruct-AWQ,Qwen/Qwen2.5-32B-Instruct-AWQ,Qwen/Qwen2.5-7B-Instruct-AWQ,deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,01-ai/Yi-1.5-9B-Chat
+google/gemma-2-9b-it,Gemma,1.000,0.530,0.552,0.317,0.424,0.323,0.447,0.387,0.490,0.385,0.449
+ibm-granite/granite-3.3-8b-instruct,Granite,0.530,1.000,0.586,0.382,0.532,0.426,0.544,0.562,0.621,0.458,0.575
+meta-llama/Llama-3.1-8B-Instruct,Llama,0.552,0.586,1.000,0.439,0.548,0.409,0.506,0.457,0.536,0.496,0.568
+mistralai/Mistral-7B-Instruct-v0.3,Mistral,0.317,0.382,0.439,1.000,0.384,0.226,0.341,0.252,0.347,0.373,0.419
+allenai/OLMo-2-1124-7B-Instruct,OLMo,0.424,0.532,0.548,0.384,1.000,0.291,0.500,0.399,0.517,0.443,0.449
+microsoft/phi-4,Phi,0.323,0.426,0.409,0.226,0.291,1.000,0.562,0.649,0.386,0.323,0.321
+Qwen/Qwen2.5-14B-Instruct-AWQ,Qwen,0.447,0.544,0.506,0.341,0.500,0.562,1.000,0.735,0.598,0.475,0.420
+Qwen/Qwen2.5-32B-Instruct-AWQ,Qwen,0.387,0.562,0.457,0.252,0.399,0.649,0.735,1.000,0.589,0.372,0.408
+Qwen/Qwen2.5-7B-Instruct-AWQ,Qwen,0.490,0.621,0.536,0.347,0.517,0.386,0.598,0.589,1.000,0.497,0.476
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,Qwen,0.385,0.458,0.496,0.373,0.443,0.323,0.475,0.372,0.497,1.000,0.406
+01-ai/Yi-1.5-9B-Chat,Yi,0.449,0.575,0.568,0.419,0.449,0.321,0.420,0.408,0.476,0.406,1.000

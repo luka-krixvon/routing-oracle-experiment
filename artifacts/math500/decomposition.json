@@ -1,0 +1,360 @@
+{
+  "mode": "data",
+  "gates": {
+    "known_p": {
+      "pass": true,
+      "tv": 0.009440000000000018,
+      "max_tv": 0.06
+    },
+    "independence": {
+      "pass": true,
+      "overdisp": 1.0,
+      "frac_in_band": 0.954811063498247,
+      "n_cells": 2567
+    },
+    "all_pass": true
+  },
+  "oracles_mean": {
+    "single": 0.87,
+    "exp_seed_aligned": 0.8732000000000001,
+    "exp_perp_envelope": 0.8744108312917213,
+    "reproducible": 0.8368666666666668,
+    "router": 0.7726666666666667
+  },
+  "decomposition_point": {
+    "O_exp_mean": 0.8732000000000001,
+    "O_repro_mean": 0.8368666666666668,
+    "router_mean": 0.7726666666666667,
+    "G_single": 0.10053333333333334,
+    "recoverable": 0.0642,
+    "noise": 0.036333333333333336,
+    "noise_share": 0.3614058355437666
+  },
+  "noise_share_ci": {
+    "point": 0.3614058355437666,
+    "lo": 0.3063231587464966,
+    "hi": 0.4219949988531767,
+    "lower_bound_above_0": true
+  },
+  "conservative_one_sided": {
+    "R_k": 0.1999122837979352,
+    "O_exp_mean": 0.8732000000000001,
+    "O_repro_mean": 0.8368666666666668,
+    "O_repro_upper_mean": 1.0367789504646021,
+    "O_exp_lower_mean": 0.6732877162020647,
+    "noise_point": 0.036333333333333336,
+    "Delta_lower_mean": 0.00013403506294985156,
+    "noise_recoverable_share_lower": 0.0013332400160794254
+  },
+  "falsifiable_best_of_K": {
+    "committed_model": "per-query argmax_m p_hat",
+    "best_of_k_committed": 0.946,
+    "O_exp_perp_mean": 0.8744108312917213,
+    "slack": 0.01,
+    "passes_recoverability": true
+  },
+  "stratified": {
+    "thin(<=3)": {
+      "frac": 0.278,
+      "noise": 0.11894484412470023,
+      "noise_share": 0.430182133564614
+    },
+    "dense(>3)": {
+      "frac": 0.722,
+      "noise": 0.0045244690674053544,
+      "noise_share": 0.1380281690140845
+    }
+  },
+  "verifier_free_split": {
+    "O_agg_mean": 0.824,
+    "Delta_know_mean": 0.02833333333333333,
+    "Delta_guess_mean": 0.0582,
+    "note": "O_agg = single plurality/self-consistency vote (a LOWER bound on the sup O^agg)."
+  },
+  "pool_definitions": {
+    "full": {
+      "models": [
+        "mistralai/Mistral-7B-Instruct-v0.3",
+        "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "Qwen/Qwen2.5-7B-Instruct-AWQ",
+        "Qwen/Qwen2.5-14B-Instruct-AWQ",
+        "Qwen/Qwen2.5-32B-Instruct-AWQ",
+        "microsoft/phi-4",
+        "allenai/OLMo-2-1124-7B-Instruct",
+        "01-ai/Yi-1.5-9B-Chat",
+        "ibm-granite/granite-3.3-8b-instruct",
+        "google/gemma-2-9b-it",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ],
+      "lineages": [
+        "Gemma",
+        "Granite",
+        "Llama",
+        "Mistral",
+        "OLMo",
+        "Phi",
+        "Qwen",
+        "Yi"
+      ],
+      "M": 11,
+      "router_basis": "best-single-within-pool",
+      "oracles_mean": {
+        "exp_seed_aligned": 0.8732000000000001,
+        "reproducible": 0.8368666666666668,
+        "router": 0.7726666666666667
+      },
+      "noise_mean": 0.036333333333333336,
+      "gap_mean": 0.10053333333333334,
+      "noise_share": {
+        "point": 0.3614058355437666,
+        "lo": 0.3063231587464966,
+        "hi": 0.4219949988531767,
+        "lower_bound_above_0": true
+      },
+      "conservative_floor_mean": 0.00013403506294985156
+    },
+    "one_per_lineage": {
+      "models": [
+        "mistralai/Mistral-7B-Instruct-v0.3",
+        "Qwen/Qwen2.5-32B-Instruct-AWQ",
+        "microsoft/phi-4",
+        "allenai/OLMo-2-1124-7B-Instruct",
+        "01-ai/Yi-1.5-9B-Chat",
+        "ibm-granite/granite-3.3-8b-instruct",
+        "google/gemma-2-9b-it",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ],
+      "lineages": [
+        "Gemma",
+        "Granite",
+        "Llama",
+        "Mistral",
+        "OLMo",
+        "Phi",
+        "Qwen",
+        "Yi"
+      ],
+      "M": 8,
+      "router_basis": "best-single-within-pool",
+      "oracles_mean": {
+        "exp_seed_aligned": 0.8556666666666666,
+        "reproducible": 0.8272,
+        "router": 0.7726666666666667
+      },
+      "noise_mean": 0.028466666666666664,
+      "gap_mean": 0.083,
+      "noise_share": {
+        "point": 0.34297188755020075,
+        "lo": 0.2851321681666014,
+        "hi": 0.40879489819172177,
+        "lower_bound_above_0": true
+      },
+      "conservative_floor_mean": 0.0001220071844548598
+    },
+    "qwen_size_sweep": {
+      "models": [
+        "Qwen/Qwen2.5-7B-Instruct-AWQ",
+        "Qwen/Qwen2.5-14B-Instruct-AWQ",
+        "Qwen/Qwen2.5-32B-Instruct-AWQ"
+      ],
+      "lineages": [
+        "Qwen"
+      ],
+      "M": 3,
+      "router_basis": "best-single-within-pool",
+      "oracles_mean": {
+        "exp_seed_aligned": 0.8296666666666668,
+        "reproducible": 0.8044000000000001,
+        "router": 0.7726666666666667
+      },
+      "noise_mean": 0.025266666666666666,
+      "gap_mean": 0.057,
+      "noise_share": {
+        "point": 0.44327485380116954,
+        "lo": 0.372211937243631,
+        "hi": 0.5340872820032944,
+        "lower_bound_above_0": true
+      },
+      "conservative_floor_mean": 0.00036829004701072443
+    },
+    "_note": "router baseline = best-single-within-pool for comparability; lineage grouped by pretraining (a Qwen-distilled model counts as Qwen); one_per_lineage keeps the strongest member of each lineage and is the conservative headline."
+  },
+  "family_correlation": {
+    "order": [
+      "google/gemma-2-9b-it",
+      "ibm-granite/granite-3.3-8b-instruct",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "mistralai/Mistral-7B-Instruct-v0.3",
+      "allenai/OLMo-2-1124-7B-Instruct",
+      "microsoft/phi-4",
+      "Qwen/Qwen2.5-14B-Instruct-AWQ",
+      "Qwen/Qwen2.5-32B-Instruct-AWQ",
+      "Qwen/Qwen2.5-7B-Instruct-AWQ",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "01-ai/Yi-1.5-9B-Chat"
+    ],
+    "lineage": [
+      "Gemma",
+      "Granite",
+      "Llama",
+      "Mistral",
+      "OLMo",
+      "Phi",
+      "Qwen",
+      "Qwen",
+      "Qwen",
+      "Qwen",
+      "Yi"
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.648,
+        0.735,
+        0.464,
+        0.637,
+        0.542,
+        0.585,
+        0.536,
+        0.608,
+        0.65,
+        0.764
+      ],
+      [
+        0.648,
+        1.0,
+        0.71,
+        0.384,
+        0.619,
+        0.794,
+        0.798,
+        0.779,
+        0.793,
+        0.768,
+        0.705
+      ],
+      [
+        0.735,
+        0.71,
+        1.0,
+        0.453,
+        0.687,
+        0.606,
+        0.655,
+        0.591,
+        0.658,
+        0.691,
+        0.781
+      ],
+      [
+        0.464,
+        0.384,
+        0.453,
+        1.0,
+        0.571,
+        0.293,
+        0.345,
+        0.293,
+        0.361,
+        0.416,
+        0.463
+      ],
+      [
+        0.637,
+        0.619,
+        0.687,
+        0.571,
+        1.0,
+        0.483,
+        0.539,
+        0.47,
+        0.551,
+        0.619,
+        0.672
+      ],
+      [
+        0.542,
+        0.794,
+        0.606,
+        0.293,
+        0.483,
+        1.0,
+        0.827,
+        0.859,
+        0.778,
+        0.67,
+        0.599
+      ],
+      [
+        0.585,
+        0.798,
+        0.655,
+        0.345,
+        0.539,
+        0.827,
+        1.0,
+        0.871,
+        0.85,
+        0.694,
+        0.674
+      ],
+      [
+        0.536,
+        0.779,
+        0.591,
+        0.293,
+        0.47,
+        0.859,
+        0.871,
+        1.0,
+        0.824,
+        0.63,
+        0.588
+      ],
+      [
+        0.608,
+        0.793,
+        0.658,
+        0.361,
+        0.551,
+        0.778,
+        0.85,
+        0.824,
+        1.0,
+        0.684,
+        0.678
+      ],
+      [
+        0.65,
+        0.768,
+        0.691,
+        0.416,
+        0.619,
+        0.67,
+        0.694,
+        0.63,
+        0.684,
+        1.0,
+        0.702
+      ],
+      [
+        0.764,
+        0.705,
+        0.781,
+        0.463,
+        0.672,
+        0.599,
+        0.674,
+        0.588,
+        0.678,
+        0.702,
+        1.0
+      ]
+    ],
+    "within_lineage_mean": 0.7589517127692748,
+    "cross_lineage_mean": 0.6140780187582707,
+    "effective_pool_size": 2.125973175503086,
+    "n_models": 11,
+    "note": "Pearson corr of per-query p_hat across queries, clustered by lineage; effective_pool_size = participation ratio (1=identical .. M=independent). CSV: family_correlation.csv"
+  }
+}
