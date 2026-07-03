@@ -5,6 +5,7 @@ prompts + gold), write data/subset.json = [{id, prompt, gold, task}] for 02/03.
 
   python scripts/01_make_subset.py --benchmark gsm8k --n 200
   python scripts/01_make_subset.py --benchmark mmlu  --n 500
+  python scripts/01_make_subset.py --benchmark gpqa  --n 198  # GPQA-Diamond (all 198)
 
 (RouterBench / LLMRouterBench, which ship a pre-scored matrix without a clean gold
 field, are handled by src.data.load_raw_correctness for stratification-only use.)
@@ -16,7 +17,7 @@ from src import data
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--benchmark", default="gsm8k", help="gsm8k | mmlu")
+    ap.add_argument("--benchmark", default="gsm8k", help="gsm8k | mmlu | math500 | gpqa")
     ap.add_argument("--split", default="test")
     ap.add_argument("--n", type=int, default=200, help="subset size (pilot ~200, full ~5000)")
     ap.add_argument("--seed", type=int, default=42)

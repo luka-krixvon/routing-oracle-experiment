@@ -19,7 +19,9 @@ def load_benchmark(name: str = "gsm8k", split: str = "test", n: int | None = Non
     (prompt, gold, task) — not any pre-scored matrix. Standard benchmarks expose a
     clean gold field, unlike RouterBench's pickle. Returns [{id, prompt, gold, task}].
 
-    Supported: gsm8k (numeric exact-match), mmlu (multiple-choice A-D). Extend as needed.
+    Supported: gsm8k (numeric exact-match), mmlu (multiple-choice A-D),
+    math500 (free-form boxed), gpqa (GPQA-Diamond, graduate-science multiple-choice
+    A-D — the hard, unsaturated NON-math exact-match niche). Extend as needed.
     Requires the `datasets` library (see requirements.txt). Runs on the GPU VM.
     """
     from datasets import load_dataset
@@ -52,8 +54,50 @@ def load_benchmark(name: str = "gsm8k", split: str = "test", n: int | None = Non
                       "\n\nPlease reason step by step, and put your final answer inside \\boxed{}.")
             recs.append({"id": f"math500-{i}", "prompt": prompt, "gold": ex["answer"],
                          "task": "math500"})
+    elif name == "gpqa":
+        # GPQA-Diamond: 198 expert-written, Google-proof graduate-level questions in
+        # biology/physics/chemistry. NON-math, 4-way multiple-choice, exact-match, and
+        # deeply UNSATURATED for a 7-14B open pool (domain experts out-of-field score ~34%),
+        # so the rare-correct / thin-support stratum is large -> the noise-dominant regime
+        # the localization needs, on a benchmark that fits one 24GB GPU (198 items, k draws).
+        #
+        # Primary source is the canonical (gated) dataset: raw fields Question / Correct
+        # Answer / Incorrect Answer 1..3. We shuffle the four options with a per-query,
+        # seed-derived RNG (reproducible; A8-compatible) and record the gold LETTER, exactly
+        # as lm-eval-harness / the GPQA paper build the prompt. If the gated repo is not
+        # accessible (no HF login / license), we fall back to an ungated pre-formatted mirror
+        # whose `problem` already embeds the choices and whose `answer` is the gold letter.
+        letters = ["A", "B", "C", "D"]
+
+        def _mc_prompt(question: str, choices: list[str]) -> str:
+            ch = "\n".join(f"{letters[j]}. {c}" for j, c in enumerate(choices))
+            return (f"{question.strip()}\n{ch}\n\nAnswer with the single letter "
+                    "(A, B, C, or D) of the correct choice.")
+        try:
+            ds = load_dataset("Idavidrein/gpqa", "gpqa_diamond", split="train")
+            for i, ex in enumerate(ds):
+                q = str(ex["Question"]).strip()
+                opts = [str(ex["Correct Answer"]).strip(),
+                        str(ex["Incorrect Answer 1"]).strip(),
+                        str(ex["Incorrect Answer 2"]).strip(),
+                        str(ex["Incorrect Answer 3"]).strip()]
+                # per-query deterministic shuffle so the correct option is not always 'A'
+                perm = np.random.default_rng([seed, i]).permutation(4)
+                shuffled = [opts[p] for p in perm]
+                gold_letter = letters[int(np.where(perm == 0)[0][0])]
+                recs.append({"id": f"gpqa-{i}", "prompt": _mc_prompt(q, shuffled),
+                             "gold": gold_letter, "task": "gpqa"})
+        except Exception as e:
+            print(f"[gpqa] canonical Idavidrein/gpqa unavailable ({type(e).__name__}: {e});"
+                  " falling back to ungated mirror aradhye/gpqa_diamond")
+            ds = load_dataset("aradhye/gpqa_diamond", split="train")   # `problem` embeds
+            for i, ex in enumerate(ds):                                # choices; `answer` is A-D
+                prompt = (str(ex["problem"]).strip() + "\n\nAnswer with the single letter "
+                          "(A, B, C, or D) of the correct choice.")
+                recs.append({"id": f"gpqa-{i}", "prompt": prompt,
+                             "gold": str(ex["answer"]).strip(), "task": "gpqa"})
     else:
-        raise ValueError(f"unknown benchmark {name!r} (supported: gsm8k, mmlu, math500; "
+        raise ValueError(f"unknown benchmark {name!r} (supported: gsm8k, mmlu, math500, gpqa; "
                          "for RouterBench/LLMRouterBench use load_raw_correctness)")
     if n is not None and n < len(recs):
         idx = rng.choice(len(recs), n, replace=False)
