@@ -343,8 +343,29 @@ magnitude is reported.
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). The arXiv identifier will be added once the
-preprint is posted.
+If you use this code or its findings, please cite the preprint:
+
+> Teng-Ruei Chen. **How Much of the Routing Gap Is Real? Decomposing the
+> Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw
+> Label Noise.** arXiv:2607.03436 [cs.LG], 2026.
+> <https://arxiv.org/abs/2607.03436>
+
+```bibtex
+@article{chen2026routinggap,
+  title   = {How Much of the Routing Gap Is Real? Decomposing the Router-to-Oracle
+             Gap into Reproducible Specialist Advantage and Single-Draw Label Noise},
+  author  = {Chen, Teng-Ruei},
+  journal = {arXiv preprint arXiv:2607.03436},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2607.03436},
+  url     = {https://arxiv.org/abs/2607.03436}
+}
+```
+
+Machine-readable metadata is in [`CITATION.cff`](CITATION.cff).
+
+<!-- JOURNAL VERSION — once the peer-reviewed version is accepted, add the venue,
+     year, and DOI here and update the journal/doi fields in CITATION.cff. -->
 
 ## License
 
