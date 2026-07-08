@@ -8,6 +8,7 @@ authors:
     affiliation: "Institute of Bioinformatics and Systems Biology, National Yang Ming Chiao Tung University, Hsinchu 300, Taiwan; and Krixvon AI, Taiwan"
     email: luka@krixvon.com
 repository-code: "https://github.com/luka-krixvon/routing-oracle-experiment"
+url: "https://arxiv.org/abs/2607.03436"
 license: MIT
 # version: v1.0            # set on tagged release
 # date-released: 2026-XX-XX
@@ -18,6 +19,8 @@ preferred-citation:
     - family-names: Chen
       given-names: Teng-Ruei
   year: 2026
-  # arXiv id to be filled once the preprint is posted:
-  # url: "https://arxiv.org/abs/XXXX.XXXXX"
-  notes: "Preprint (V1). arXiv identifier to be added after posting."
+  month: 7
+  journal: "arXiv preprint"
+  doi: "10.48550/arXiv.2607.03436"
+  url: "https://arxiv.org/abs/2607.03436"
+  notes: "arXiv:2607.03436 (v2, revised 7 July 2026)."
