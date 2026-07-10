@@ -5,6 +5,7 @@
 ![Serving](https://img.shields.io/badge/serving-vLLM-orange.svg)
 ![Hardware](https://img.shields.io/badge/hardware-2%C3%97%20RTX%204090-lightgrey.svg)
 ![No API key](https://img.shields.io/badge/API%20key-not%20required-brightgreen.svg)
+[![arXiv](https://img.shields.io/badge/arXiv-2607.03436-b31b1b.svg)](https://arxiv.org/abs/2607.03436)
 
 > Reproducibility companion for the paper *“How Much of the Routing Gap Is Real?
 > Decomposing the Router-to-Oracle Gap into Reproducible Specialist Advantage and
@@ -16,6 +17,12 @@
 > one thing: it **measures the empirical magnitude** those theorems predict on a
 > real open-weight pool, and runs the two assumption **gates** and the single
 > **falsifiable** check. If a gate fails, it reports *no* magnitude — by design.
+>
+> **Follow-up work.** The companion policy paper **“Resample or Reroute?”**
+> ([arXiv:2607.08665](https://arxiv.org/abs/2607.08665)) turns this analysis into
+> a deployable, budget-aware test-time policy, replayed directly on the
+> correctness tensors released here — code:
+> [resample-or-reroute-experiment](https://github.com/luka-krixvon/resample-or-reroute-experiment).
 
 <p align="center">
   <img src="figures/fig_example.png" width="60%" alt="Worked example">
@@ -349,6 +356,13 @@ If you use this code or its findings, please cite the preprint:
 > Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw
 > Label Noise.** arXiv:2607.03436 [cs.LG], 2026.
 > <https://arxiv.org/abs/2607.03436>
+
+If you use the budget-aware resample-or-reroute policy built on these tensors,
+please also cite the follow-up paper:
+
+> Teng-Ruei Chen. **Resample or Reroute? Budget-Aware Test-Time Model Selection
+> for Large Language Models.** arXiv:2607.08665 [cs.LG], 2026.
+> <https://arxiv.org/abs/2607.08665>
 
 ```bibtex
 @article{chen2026routinggap,
