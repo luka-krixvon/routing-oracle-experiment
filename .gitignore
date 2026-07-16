@@ -34,3 +34,10 @@ env/
 # ---- published paper artifacts (small; reproduce the tables from committed data) — DO commit ----
 !artifacts/
 !artifacts/**
+
+# ---- GPQA anti-leak: the dataset's authors ask that questions/answers never be
+# posted online in plaintext. Only subset_ids.json (hashes) is published;
+# rebuild the plaintext locally with scripts/rebuild_gpqa_subset.py ----
+artifacts/gpqa/subset.json
+artifacts/**/*.local.json
+artifacts/**/*.local.npz

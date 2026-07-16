@@ -1,0 +1,1190 @@
+[
+{
+"id": "gpqa-0",
+"task": "gpqa",
+"prompt_sha256": "d4c42618a8193793211b0ead2f1a83d71c283c5c0d498876603d752fb71beec3",
+"gold_check": "404ee4aa4ddd901c"
+},
+{
+"id": "gpqa-1",
+"task": "gpqa",
+"prompt_sha256": "6d3a859f2026bc476900cb47080d40f99daf1a512ac216ebee35cd070a0001f5",
+"gold_check": "901c2b65165608e1"
+},
+{
+"id": "gpqa-2",
+"task": "gpqa",
+"prompt_sha256": "2fdf83a787ac027a7e127eac34caeb6bd9dbcface09ebca1d8e93293dbc05d77",
+"gold_check": "765a2ccc6a1b2054"
+},
+{
+"id": "gpqa-3",
+"task": "gpqa",
+"prompt_sha256": "a92a5fca80852299116923f8e3c7ec9556ad624f8e81979f297d1c1d084740a8",
+"gold_check": "1d493baeeb1db9b8"
+},
+{
+"id": "gpqa-4",
+"task": "gpqa",
+"prompt_sha256": "65f152c2a825fffbe01a1d141afd870969b6654e8f89a3588e3210bc15d6f6d8",
+"gold_check": "52bf37ef4b48f7be"
+},
+{
+"id": "gpqa-5",
+"task": "gpqa",
+"prompt_sha256": "fd0a9a08e4e6a314329847abdbe2b6b1aff0b08eff562e74f607f9ab618b9cec",
+"gold_check": "e9286d8e5cce482c"
+},
+{
+"id": "gpqa-6",
+"task": "gpqa",
+"prompt_sha256": "f6a2ca026685184c440dca76c75cde32f02612d3a5eae6f7ca4b7c56dd769f44",
+"gold_check": "a64b0676df0a50f1"
+},
+{
+"id": "gpqa-7",
+"task": "gpqa",
+"prompt_sha256": "ea01e262177d5a053dbf4f7c6749c7a3878b3b7fa183b38a9b86fb4a752aa49f",
+"gold_check": "9d3b79835fad8150"
+},
+{
+"id": "gpqa-8",
+"task": "gpqa",
+"prompt_sha256": "7750ffd433e18ca9f1eec4aa5daa8576181c714d011b92533b5a75edf12e0232",
+"gold_check": "31ac37dbc56821d2"
+},
+{
+"id": "gpqa-9",
+"task": "gpqa",
+"prompt_sha256": "5a86779e51c3be96ec3c4141a2a6460766dd7ad091fd891212ce13c29da6053b",
+"gold_check": "2ae0c47077afd61e"
+},
+{
+"id": "gpqa-10",
+"task": "gpqa",
+"prompt_sha256": "e0f4d6af5f8a8d38751789807cfc7506f28466cdc5d60562fc5100c62d0cd6ea",
+"gold_check": "72dafb62b08e6076"
+},
+{
+"id": "gpqa-11",
+"task": "gpqa",
+"prompt_sha256": "ad6551e87b3536d5f510788f43d8c22ee0572a3bdcae8a2524d0d19ad9a5a8b0",
+"gold_check": "d5cdcbda38b4e81e"
+},
+{
+"id": "gpqa-12",
+"task": "gpqa",
+"prompt_sha256": "3c776c258f9e6607144d94729be5ac331edbb7a8ca780f4cef2640b56cb47106",
+"gold_check": "5bb2f80566b3317b"
+},
+{
+"id": "gpqa-13",
+"task": "gpqa",
+"prompt_sha256": "04d05913d7a1b99ca7f2c10f660909d018b61e1eb6efc5f2bd2f9ce0b0cf902d",
+"gold_check": "0a4c29abc8c2300f"
+},
+{
+"id": "gpqa-14",
+"task": "gpqa",
+"prompt_sha256": "f7d2c7978e19c56e565c0831adb38efd398772ec72b9935703ca12486925a056",
+"gold_check": "dfab61db910d1148"
+},
+{
+"id": "gpqa-15",
+"task": "gpqa",
+"prompt_sha256": "a88130bb80272f9ba7b04cb7a09f94f43a02d4e2986d0963c72ee9ca891ff65b",
+"gold_check": "11323ba93cdf1503"
+},
+{
+"id": "gpqa-16",
+"task": "gpqa",
+"prompt_sha256": "c3b11630e9af993bc601a9b196bdfe02362a5aea5699b5dac9fe8ba5b5f0bf8b",
+"gold_check": "ff76da76001a09d9"
+},
+{
+"id": "gpqa-17",
+"task": "gpqa",
+"prompt_sha256": "6df52b76d7eaffe9c4cba4fec36ef4e4fdf72ac8383022085e9b196bc6f3c7d8",
+"gold_check": "ba7231386585c7a2"
+},
+{
+"id": "gpqa-18",
+"task": "gpqa",
+"prompt_sha256": "948b340e0e5a62b2027125af5abcdf087f734d63f77064c3bfdc8be287e54793",
+"gold_check": "dd80b53229da1697"
+},
+{
+"id": "gpqa-19",
+"task": "gpqa",
+"prompt_sha256": "b84695035d0b50634d30e90da3455072e64face2b1c30e4961a84f7d5f9646e7",
+"gold_check": "6171cb04fba8efdb"
+},
+{
+"id": "gpqa-20",
+"task": "gpqa",
+"prompt_sha256": "9aa3d3ed4586db0c101d796f7076f0db77a524350e07d64a38dd5583fbec84ca",
+"gold_check": "7d15cefd348f4965"
+},
+{
+"id": "gpqa-21",
+"task": "gpqa",
+"prompt_sha256": "4a884b81570b0dd27c33c8734bb096522b29736d1ed6d7404320217db9b6081a",
+"gold_check": "96cbf7140feccfc5"
+},
+{
+"id": "gpqa-22",
+"task": "gpqa",
+"prompt_sha256": "4729fcc3d3b5215d861592c72cba0f565ed91013dd9715298e3d92ee8bce7a33",
+"gold_check": "cf1f41804ff3ee43"
+},
+{
+"id": "gpqa-23",
+"task": "gpqa",
+"prompt_sha256": "6568aece11f6643dade076cc9df47edae0b7c6e493901edbdb6c613c4344e143",
+"gold_check": "21a057de8aa5a0d3"
+},
+{
+"id": "gpqa-24",
+"task": "gpqa",
+"prompt_sha256": "7665e8dfac1d59d1f5443e79dd58acf9077eb0eed0f93792a1fe4c44cec1971a",
+"gold_check": "1f59b75f1b791990"
+},
+{
+"id": "gpqa-25",
+"task": "gpqa",
+"prompt_sha256": "7b96644165b2f0aa47a76d2911e082e5a10fc00debeabeb24c613a0f3b72ed3d",
+"gold_check": "38af93f0244f1c67"
+},
+{
+"id": "gpqa-26",
+"task": "gpqa",
+"prompt_sha256": "24d2a2aa0cec7ab74693d640416a80890a607d29847c50d1f9bf3111291e8504",
+"gold_check": "05aea2c56751c1f1"
+},
+{
+"id": "gpqa-27",
+"task": "gpqa",
+"prompt_sha256": "3aab03df782c4af503400dd96b09d66be6b93dffb895b9a7dbaf57cffe150fcf",
+"gold_check": "e35ab623fe7c6fda"
+},
+{
+"id": "gpqa-28",
+"task": "gpqa",
+"prompt_sha256": "8d1e458de1dfcbef3326dcb967a3236b2ecbbbacd917fc5bfb7bbe2c5a88d2d0",
+"gold_check": "2bbc5a22461711c4"
+},
+{
+"id": "gpqa-29",
+"task": "gpqa",
+"prompt_sha256": "fd39fe3a411ee2db6983098d32133d69ba292411fc8bd7b2460637b30c244b40",
+"gold_check": "af8a13bee7ee9d21"
+},
+{
+"id": "gpqa-30",
+"task": "gpqa",
+"prompt_sha256": "3bd62cb02e52771231c2cc43bdc4b3d102abd311cc5fdb3df2f8dec5172497e7",
+"gold_check": "e10217512d7f5257"
+},
+{
+"id": "gpqa-31",
+"task": "gpqa",
+"prompt_sha256": "d65eb23faffca4fbe8d8240c8006fa85d88c8d1d8ed3a63babc846b81c0e7b28",
+"gold_check": "531b95465b66da3c"
+},
+{
+"id": "gpqa-32",
+"task": "gpqa",
+"prompt_sha256": "f34f935ae3028fdd1c3ad8befbc2be1b9ef97d8c3c0ae8592a3497d89f414610",
+"gold_check": "e30df2905078d351"
+},
+{
+"id": "gpqa-33",
+"task": "gpqa",
+"prompt_sha256": "4cdc054af8706ea6cbc87951761ac837244e3af30480a4636ccceae6e7d65f73",
+"gold_check": "8fde498e9c23d647"
+},
+{
+"id": "gpqa-34",
+"task": "gpqa",
+"prompt_sha256": "9491f1544b1ecc6d858d0143c2fd1bbc6e04685f4318b2c1f98590f5d0e3dfb8",
+"gold_check": "58d40d00dd54e26b"
+},
+{
+"id": "gpqa-35",
+"task": "gpqa",
+"prompt_sha256": "2673b69e6fec5a9d0e4511939d3786d3c2ba22b04b91bbfa1988bd601a4be9ee",
+"gold_check": "728434365b37628c"
+},
+{
+"id": "gpqa-36",
+"task": "gpqa",
+"prompt_sha256": "56461332deef1f0516415e7bb4212d52c8fdd5ee56949e996e8fc9437f467c3f",
+"gold_check": "4c2d7ce6e5cf9f3c"
+},
+{
+"id": "gpqa-37",
+"task": "gpqa",
+"prompt_sha256": "77a2f35f3689e4927adbafd7216880fa34517a3e9e7f0cd79ff2ffe59088965f",
+"gold_check": "7e365d32b20b537a"
+},
+{
+"id": "gpqa-38",
+"task": "gpqa",
+"prompt_sha256": "36f21bbe52635d0d91b10e892f677083088a05baad1ba9a8a19918548c56437a",
+"gold_check": "f403418ea42c9df7"
+},
+{
+"id": "gpqa-39",
+"task": "gpqa",
+"prompt_sha256": "74a5a32719e8e2005fc6f09b0f584478d74273b5c2d528a8a835ef3731bd1250",
+"gold_check": "ddf5c10820a9f034"
+},
+{
+"id": "gpqa-40",
+"task": "gpqa",
+"prompt_sha256": "6db2e38b8fbb572380c938adf06e94535ea8a0f89a2c476b2623adb6ccab9efe",
+"gold_check": "30be743d60a2ca2e"
+},
+{
+"id": "gpqa-41",
+"task": "gpqa",
+"prompt_sha256": "7d05701153ae386f7181cddb5cb84ec91be8bbeaec268cb7ceff82ea8ce20172",
+"gold_check": "b58050fd4c3b7d84"
+},
+{
+"id": "gpqa-42",
+"task": "gpqa",
+"prompt_sha256": "2be88ee28af0504dc1e5e67375bfcbcc65d72532533233009a777401685fd5e3",
+"gold_check": "8b4e34c3529c9dbd"
+},
+{
+"id": "gpqa-43",
+"task": "gpqa",
+"prompt_sha256": "cb2674c95a98a684f122764982823d526272d11e6eddaa7dc452775bc10378ba",
+"gold_check": "81a682124b4ad9f0"
+},
+{
+"id": "gpqa-44",
+"task": "gpqa",
+"prompt_sha256": "a186679e37a122200bf12208c02defc1551016ab3ecf38b7998fdcfda95a7e4c",
+"gold_check": "55d0bcdabe8ba3fc"
+},
+{
+"id": "gpqa-45",
+"task": "gpqa",
+"prompt_sha256": "257bd0df6cf4ad813a229be17b5813b76fcc124a14569e88c4902a12affee797",
+"gold_check": "a4a068fbe6f01538"
+},
+{
+"id": "gpqa-46",
+"task": "gpqa",
+"prompt_sha256": "be232e8efec4673cdd8cdac0a698ddbe055fd4ed3dd5161842d45006c9f338ab",
+"gold_check": "612cd9cc3473dbe6"
+},
+{
+"id": "gpqa-47",
+"task": "gpqa",
+"prompt_sha256": "27a05b32979bbf2d5f85a7c9cd2350e777c1e13df41ff9d8232731ed99b459de",
+"gold_check": "e40f910ec4325f2b"
+},
+{
+"id": "gpqa-48",
+"task": "gpqa",
+"prompt_sha256": "9155ea6ae25e27709e94df28e97eba5509912c153239e6ee13ce824fe14c54fb",
+"gold_check": "0eaa163863cf38ad"
+},
+{
+"id": "gpqa-49",
+"task": "gpqa",
+"prompt_sha256": "07d5853bff452f41175474355bbab767f82d45151c054587990fcffea9fa0eda",
+"gold_check": "297a0f7bbd16d92a"
+},
+{
+"id": "gpqa-50",
+"task": "gpqa",
+"prompt_sha256": "4c72b9594899a4d47f4d0a2c9bf25faac8d7a4c42b918a1d280b10e4a83f4b0a",
+"gold_check": "e3278b79f2e9c5b2"
+},
+{
+"id": "gpqa-51",
+"task": "gpqa",
+"prompt_sha256": "b0dedab4d3d8dbc62dbc7eba2b5c9550434fd2e79fcef5f7e99b2a12874754c4",
+"gold_check": "44fe05a544005d19"
+},
+{
+"id": "gpqa-52",
+"task": "gpqa",
+"prompt_sha256": "6f5559bb5d61a7a38f88d98487b382aeb8a3053295df5ad8aca5d2c795e90f1f",
+"gold_check": "d6688bebc5f085da"
+},
+{
+"id": "gpqa-53",
+"task": "gpqa",
+"prompt_sha256": "ea1fadbaeb15cd2723244635da74cda43d7a5e5f6db4f728b2c39b8063c8427e",
+"gold_check": "4a66d699c3a2eaec"
+},
+{
+"id": "gpqa-54",
+"task": "gpqa",
+"prompt_sha256": "d75c97ea60ec1209e7c55d0c14aa86eb21a049410dc2b5df6e3ac74b18cd1ca2",
+"gold_check": "e4917950436101b6"
+},
+{
+"id": "gpqa-55",
+"task": "gpqa",
+"prompt_sha256": "eadce78db716bb0de231571ff800b6c57aa7f9baaaf0a0bf36ddd1b1a4cfa6b6",
+"gold_check": "c0224630d65555b1"
+},
+{
+"id": "gpqa-56",
+"task": "gpqa",
+"prompt_sha256": "c67933258538c020d4d591dd736038251fa180c19bfd4cdda2684ab3317405ff",
+"gold_check": "d2a06c2ac9101897"
+},
+{
+"id": "gpqa-57",
+"task": "gpqa",
+"prompt_sha256": "5a2ab5d66383df74a3ea82edcea12c81a9d75f1ef4ed19cc835b96a09d16a1a3",
+"gold_check": "d85b6b5e4016a5f9"
+},
+{
+"id": "gpqa-58",
+"task": "gpqa",
+"prompt_sha256": "86f2d7833b7e42e89c4e22cc128d721f41f465672d7f13365cf703b5d1297156",
+"gold_check": "e32d8e5e8ff72818"
+},
+{
+"id": "gpqa-59",
+"task": "gpqa",
+"prompt_sha256": "a2d8156471a39e4bd054a3529b413917c04b6a62630efd6aa47ddaa68e0cac89",
+"gold_check": "fdae2ee488d2b34a"
+},
+{
+"id": "gpqa-60",
+"task": "gpqa",
+"prompt_sha256": "7b5c427102fd5b7326041660e60c60d312332a6c7f60fdfd7511d5aac6675612",
+"gold_check": "b69883c70f787d0e"
+},
+{
+"id": "gpqa-61",
+"task": "gpqa",
+"prompt_sha256": "b34a223d29847132d42fc349203519f0047ebf74ce110a9dd18267acd008ee93",
+"gold_check": "83ff8572c90b144d"
+},
+{
+"id": "gpqa-62",
+"task": "gpqa",
+"prompt_sha256": "c11735f7dcfe825608d33ad67411f026d26fee8a30f93b6bafaa7eb3c463346f",
+"gold_check": "cf3f76ff941eb608"
+},
+{
+"id": "gpqa-63",
+"task": "gpqa",
+"prompt_sha256": "e1555b118157321e6dca3bda24e26e97daf31ecb18f1bd194a9661120f85ad84",
+"gold_check": "8fd4458d3907d194"
+},
+{
+"id": "gpqa-64",
+"task": "gpqa",
+"prompt_sha256": "7d0c65ea51f314829deea24715bf74f70faf9364ef41bd924ccb7390bc66d1b1",
+"gold_check": "5312dffbf6d20f61"
+},
+{
+"id": "gpqa-65",
+"task": "gpqa",
+"prompt_sha256": "896d4ab3c14ef4e3780644df6ffccb42fdce2c0d135592524ca70c6d390fe3e6",
+"gold_check": "c5e74130f9dffeb9"
+},
+{
+"id": "gpqa-66",
+"task": "gpqa",
+"prompt_sha256": "e51d94d4ce55f0ede08242385102ad83f77cda62132f7dfc3a6f9c925b1540b6",
+"gold_check": "0053a4e58c3edb63"
+},
+{
+"id": "gpqa-67",
+"task": "gpqa",
+"prompt_sha256": "fda452ea0aaac72788c20d7ff918d5a8aa38c4bae2fe318cb575d976b2539bbc",
+"gold_check": "0bf98b6950d656fa"
+},
+{
+"id": "gpqa-68",
+"task": "gpqa",
+"prompt_sha256": "5e0a03e04001f5256fa5a9a37b14d8080c7a5935d97e7d81e444a6110c71b64a",
+"gold_check": "6129874f1c2b014b"
+},
+{
+"id": "gpqa-69",
+"task": "gpqa",
+"prompt_sha256": "0eb6e36fc7cae626b33314c1521843023ad63651fdfae386b7df92fa1c7319b0",
+"gold_check": "b3c5ee12efa39603"
+},
+{
+"id": "gpqa-70",
+"task": "gpqa",
+"prompt_sha256": "87e42a899ff479c71e9b058ed48a20e931cc61f33bd87b32894a31f2fb4454a2",
+"gold_check": "6a632101e24d40f7"
+},
+{
+"id": "gpqa-71",
+"task": "gpqa",
+"prompt_sha256": "413272e65c38ad78bb9c4d1c1103414f628e4e2db774bbd99cf203d4b10b4290",
+"gold_check": "03ac0e7149fdd904"
+},
+{
+"id": "gpqa-72",
+"task": "gpqa",
+"prompt_sha256": "10757ff0d4d36891725f8afdc7ae445fd934209e802cf0bc5cb09aaba72a69ff",
+"gold_check": "838b380dad4a8cf9"
+},
+{
+"id": "gpqa-73",
+"task": "gpqa",
+"prompt_sha256": "347f3fc6296b0ecffef5234be3b50d66216cdbea4312404669e8fb1a99a97356",
+"gold_check": "3b8ad3220770dc59"
+},
+{
+"id": "gpqa-74",
+"task": "gpqa",
+"prompt_sha256": "0dd1eb653cce6b3b52c6625636bb5434113ca51f03d9f25bc16a29ebf4deaa67",
+"gold_check": "95e13da5351f542a"
+},
+{
+"id": "gpqa-75",
+"task": "gpqa",
+"prompt_sha256": "e439cae764749e47ae68f26387608555414ef97de4472a93f4925faa3397a648",
+"gold_check": "ce45d8825882f50e"
+},
+{
+"id": "gpqa-76",
+"task": "gpqa",
+"prompt_sha256": "bad4278c886d639582a7de55ed15bea7c80043037893ea8afc6fd6a630cd68e2",
+"gold_check": "4e2ead72bb429b4c"
+},
+{
+"id": "gpqa-77",
+"task": "gpqa",
+"prompt_sha256": "70eb47be1dd2de0859209820698d0211f8a8deb087bfe44172429ff8de1d2884",
+"gold_check": "9cb4bb893684aa57"
+},
+{
+"id": "gpqa-78",
+"task": "gpqa",
+"prompt_sha256": "113de06180f07365de6ebf6f0f42ff64ab7e0d198faec7fc2e0926acdbfbb0c0",
+"gold_check": "f8ce4a4c5e222487"
+},
+{
+"id": "gpqa-79",
+"task": "gpqa",
+"prompt_sha256": "01f0ffcb5a761ffca33ececb57a8ed06f13ec9f2ff1bc0f2c035ca503150bc8f",
+"gold_check": "8b009c87fa10845b"
+},
+{
+"id": "gpqa-80",
+"task": "gpqa",
+"prompt_sha256": "9ebac39db83a4a3e86859b54f13a66c8af50b6727649dcb514302bf8cf08c977",
+"gold_check": "23694543eb43b12c"
+},
+{
+"id": "gpqa-81",
+"task": "gpqa",
+"prompt_sha256": "702b9894c109b57527133253a2cdc24a19d7947c5c84784d96a9c2acedfa137a",
+"gold_check": "b20c72dc8dc0d00f"
+},
+{
+"id": "gpqa-82",
+"task": "gpqa",
+"prompt_sha256": "0f475f3a21188e9ae546664f3f46e8aa259ee21bdae0333b1be8be2856b16ac4",
+"gold_check": "7bcb87e8a1cd85b6"
+},
+{
+"id": "gpqa-83",
+"task": "gpqa",
+"prompt_sha256": "cb145abaea6cd3307aff2ddb70b46c43b354d20f10bae9cfa2f6723aa7368aea",
+"gold_check": "8e00dd0c044717dc"
+},
+{
+"id": "gpqa-84",
+"task": "gpqa",
+"prompt_sha256": "b66e7f0b393e49c3f970ab786be648145e1da9252adb34c207823b2f9fda10b6",
+"gold_check": "79418aa71d856bfd"
+},
+{
+"id": "gpqa-85",
+"task": "gpqa",
+"prompt_sha256": "6ae689302a5e10fe6c1d1dea8c0a2f402a822c516d5d257f58fcc71a6ec25271",
+"gold_check": "1d62acdc5ec3cd0c"
+},
+{
+"id": "gpqa-86",
+"task": "gpqa",
+"prompt_sha256": "742c9d1c26af3ff20edbdc0c1b2687e4383efbc46178e1a0fdda13eebd225240",
+"gold_check": "f14a7657e7af2df8"
+},
+{
+"id": "gpqa-87",
+"task": "gpqa",
+"prompt_sha256": "349bb4bbb3714c8fac1a5587c4ab2f74df96a08c4104962aedf008610c21fcfd",
+"gold_check": "7bc7e723451d2a63"
+},
+{
+"id": "gpqa-88",
+"task": "gpqa",
+"prompt_sha256": "15866c73a60ba2bb51854ac0fab7f36740b9dfa7b8d15a7de08687398d1fc455",
+"gold_check": "f34ad842f8ee702c"
+},
+{
+"id": "gpqa-89",
+"task": "gpqa",
+"prompt_sha256": "c21238c8b39150ab6e9d71e68d8cfde1bc8a5cacafbf01e009ff07cd39475976",
+"gold_check": "70625c196ab7c9b1"
+},
+{
+"id": "gpqa-90",
+"task": "gpqa",
+"prompt_sha256": "5d228ff6d0d8a7df0e9ede5c3c9d1e70ba9564533a2d9b4a8265ddbe230b47e4",
+"gold_check": "be8a926d7aa2c73f"
+},
+{
+"id": "gpqa-91",
+"task": "gpqa",
+"prompt_sha256": "562abc637848cb4b34e88d879257a08090541082349a9fde13bfbf896e8030c7",
+"gold_check": "ebc1d06729a2fa4f"
+},
+{
+"id": "gpqa-92",
+"task": "gpqa",
+"prompt_sha256": "49cdb59f5efe11de7b584ad0101d4116df140db91e61d4b28d256321280b8a9e",
+"gold_check": "f079dbfe198ff5ec"
+},
+{
+"id": "gpqa-93",
+"task": "gpqa",
+"prompt_sha256": "b9352325f95de246e1b9a45eaa8e17c4c65bf73556011ee69b1870471ede359b",
+"gold_check": "8f2b611c7fbb9ffd"
+},
+{
+"id": "gpqa-94",
+"task": "gpqa",
+"prompt_sha256": "e4949b839975d54b5b4f7148688b49422bdbb9a38baeabe2998827d36d9aeeb1",
+"gold_check": "412d3ca6ca217508"
+},
+{
+"id": "gpqa-95",
+"task": "gpqa",
+"prompt_sha256": "ab0a55430a1a9c3423781f11fef1b1ed4999a62f9cd32dafa1de86c2681c85a5",
+"gold_check": "77642dfd4d84f7af"
+},
+{
+"id": "gpqa-96",
+"task": "gpqa",
+"prompt_sha256": "3827b17e0902513a7c4a810aeb124c153cbbc959faba8b97bfcd3b1fb550048c",
+"gold_check": "a2ec6aa2237223d0"
+},
+{
+"id": "gpqa-97",
+"task": "gpqa",
+"prompt_sha256": "18c6a372b2801ca32bf0654f74fd25eebc0add19ed523dd23caeb9e4fdf56532",
+"gold_check": "9572872192c02807"
+},
+{
+"id": "gpqa-98",
+"task": "gpqa",
+"prompt_sha256": "0970fab4fba711d983e7e77ad68607768e6a615f3b1c50e3d40259b1e6db4a1d",
+"gold_check": "ae65fa11ab114ece"
+},
+{
+"id": "gpqa-99",
+"task": "gpqa",
+"prompt_sha256": "c6c75b7d492c1780f10862f8b05964f810566b038ff0bd6c9bf7ea80e90a7734",
+"gold_check": "5d681e185f2f8ef3"
+},
+{
+"id": "gpqa-100",
+"task": "gpqa",
+"prompt_sha256": "4598485173f01411281c19799c020929a495baa9827124e8cdb0d7f45893cdec",
+"gold_check": "d5ee8a9206b16f61"
+},
+{
+"id": "gpqa-101",
+"task": "gpqa",
+"prompt_sha256": "399cc651a97f850192c4416ddd87916efdb952dcc53eb054d3d50398922c59b1",
+"gold_check": "a1a83545447c0859"
+},
+{
+"id": "gpqa-102",
+"task": "gpqa",
+"prompt_sha256": "67e03d06b74b5ddf425c697edc21a3e87011bd6ee09526abd61be86b5884c84c",
+"gold_check": "dc62c53b7ebf586f"
+},
+{
+"id": "gpqa-103",
+"task": "gpqa",
+"prompt_sha256": "757b6f6027d8c119d93e5f0e6085b69f5c393ece93faa80d130f955bdc8d9227",
+"gold_check": "72b2258f03c335fb"
+},
+{
+"id": "gpqa-104",
+"task": "gpqa",
+"prompt_sha256": "71aceed23f6256a21dc96935020cdfcd6535897a91dbdc71f5060adf2acc044d",
+"gold_check": "3d45e5640c73173d"
+},
+{
+"id": "gpqa-105",
+"task": "gpqa",
+"prompt_sha256": "0723137e93df6e2e40aaa3c4ca63f21763f816dae0fc02485f057070e49a8122",
+"gold_check": "d6239953049647e6"
+},
+{
+"id": "gpqa-106",
+"task": "gpqa",
+"prompt_sha256": "990329115700ab342f52e5a50f689985632f4f294fd0c140548c4ed4e83fc453",
+"gold_check": "4c93d4ef81943533"
+},
+{
+"id": "gpqa-107",
+"task": "gpqa",
+"prompt_sha256": "09020bcd5d56ad003e87963ec884b30d2fcb0abd55629947bc5d960b84c4c73b",
+"gold_check": "723fe484770c8539"
+},
+{
+"id": "gpqa-108",
+"task": "gpqa",
+"prompt_sha256": "aa7880567e46675bb3761cdd36774f9702fe1178f188f370a0d3bc456a8c6b14",
+"gold_check": "eedfe7b5e96feaff"
+},
+{
+"id": "gpqa-109",
+"task": "gpqa",
+"prompt_sha256": "f7dce4f9e109d9c919c6c08374d0a4f21d2a6ffcb690a055dacdf67119510a18",
+"gold_check": "4a224b9758df99ab"
+},
+{
+"id": "gpqa-110",
+"task": "gpqa",
+"prompt_sha256": "60210eb36082ff7cbacd395e3a1a34ff189d540792f45da9ac00223dfbe25d88",
+"gold_check": "8b4da5376a6a3861"
+},
+{
+"id": "gpqa-111",
+"task": "gpqa",
+"prompt_sha256": "deb0f8059ff10a495a84f78c8700cc7e225b48ff5a447bb5e23ca003a25220bd",
+"gold_check": "dbad5c505b99c045"
+},
+{
+"id": "gpqa-112",
+"task": "gpqa",
+"prompt_sha256": "b7dee01c2b24e575e7aadd9f03280ab67f3fce30fea6ac506931a5439c15db29",
+"gold_check": "570021d563d48401"
+},
+{
+"id": "gpqa-113",
+"task": "gpqa",
+"prompt_sha256": "35fe0c6919f1a49e40924d8097aa7a7e4afe5d321605e2c8d3748e6461b9a3a1",
+"gold_check": "e24764aa7d75272e"
+},
+{
+"id": "gpqa-114",
+"task": "gpqa",
+"prompt_sha256": "d327d2257b5d9e99faef279d8ee31594a47b2880c6b7b472dbe0ddaab7b7ff9c",
+"gold_check": "77fc0488d9bb0a51"
+},
+{
+"id": "gpqa-115",
+"task": "gpqa",
+"prompt_sha256": "071423957461241e7ab29ea30aecc2682f1aef7c8c6bfd3116f1f2c5fa88d095",
+"gold_check": "7e8cca1e4955dfe8"
+},
+{
+"id": "gpqa-116",
+"task": "gpqa",
+"prompt_sha256": "8e55062a1548a0747dafb9d1fa7c10c288f47a75c86e3d890f3ea2665767c1c3",
+"gold_check": "5c8de875dcf82ad6"
+},
+{
+"id": "gpqa-117",
+"task": "gpqa",
+"prompt_sha256": "0ea4684c16cc37709cbb6fc3558233925133087a978429de1a2be4e537098c44",
+"gold_check": "829c3cd7c537fbc7"
+},
+{
+"id": "gpqa-118",
+"task": "gpqa",
+"prompt_sha256": "c0f8e36a8d2f96953056a7b643613ecf44a96bb9e7b8876d929f4f1a84568790",
+"gold_check": "978d1c132cb72a08"
+},
+{
+"id": "gpqa-119",
+"task": "gpqa",
+"prompt_sha256": "10195a6ead787632214189ac9bb4d0899c20e98cd2685b538ba7378c92021759",
+"gold_check": "8b82029e96879e0d"
+},
+{
+"id": "gpqa-120",
+"task": "gpqa",
+"prompt_sha256": "7d4d9a2e69836522592b05f4612121b3ea1a0c7cfb6be246f6811ba3baca2de3",
+"gold_check": "ff826f47f705cf5a"
+},
+{
+"id": "gpqa-121",
+"task": "gpqa",
+"prompt_sha256": "ec7572b0f702220ce20c64b61050a2da4806efa0a916c70877503a9fc59e15da",
+"gold_check": "86ceab7f563dbb46"
+},
+{
+"id": "gpqa-122",
+"task": "gpqa",
+"prompt_sha256": "b5f429862d6ab4a1c7138e719776aa0668cf3f514c9648e8ba196dec37e104f0",
+"gold_check": "f508f9c82e66a119"
+},
+{
+"id": "gpqa-123",
+"task": "gpqa",
+"prompt_sha256": "e43b71faf2812cfc7af1a88a48bff1cd285df8b7840efaf573c0d867435795fd",
+"gold_check": "e86ee94bcd4f29bc"
+},
+{
+"id": "gpqa-124",
+"task": "gpqa",
+"prompt_sha256": "bf6ba754f5fb9c8821e658ac649fab230b4ae5ee0bc912d4dc5b47341cbfc387",
+"gold_check": "f591c00b2b99cbd2"
+},
+{
+"id": "gpqa-125",
+"task": "gpqa",
+"prompt_sha256": "f9a2ed119a72837ab81c5e4b2066e4a25270640edece3396c14e451a2094a334",
+"gold_check": "0890a7f8a703327a"
+},
+{
+"id": "gpqa-126",
+"task": "gpqa",
+"prompt_sha256": "39d67d237b93989ae92363f621e0272c9d6544a77a3e138ff2f12dc967343810",
+"gold_check": "9b1b8a5d35a49a56"
+},
+{
+"id": "gpqa-127",
+"task": "gpqa",
+"prompt_sha256": "d31e0f977bc6a3f602f393858a8880c5b6de70789b2d1a282d582a44b9e4f05e",
+"gold_check": "a9337113502fd8bb"
+},
+{
+"id": "gpqa-128",
+"task": "gpqa",
+"prompt_sha256": "9b6d64ecdb0b31fd54d9597a36f23f1b14ea074ad5ae63b81a581dbe365785e2",
+"gold_check": "09ab3ce2ed473b52"
+},
+{
+"id": "gpqa-129",
+"task": "gpqa",
+"prompt_sha256": "b90f31195312380e74cffe5c129b790159b9dcb71b690a4341041ea330f27a2b",
+"gold_check": "5bc2989c67f0be93"
+},
+{
+"id": "gpqa-130",
+"task": "gpqa",
+"prompt_sha256": "cce60400437065ba78a1e3a586ef8b6c3c5537a799f31b0ba2c514462720f823",
+"gold_check": "0055073a85dd1a80"
+},
+{
+"id": "gpqa-131",
+"task": "gpqa",
+"prompt_sha256": "a78649fe0d71cff4ffd7e44cc6c8938e8846a69c2450e923bb84db20df36a393",
+"gold_check": "e3e023ddd86217fc"
+},
+{
+"id": "gpqa-132",
+"task": "gpqa",
+"prompt_sha256": "26ae96823aab2904ee35ccfd2f33a334c5f5a2a05c0d98a73e3bfd99531d4fc9",
+"gold_check": "48afba30f210943b"
+},
+{
+"id": "gpqa-133",
+"task": "gpqa",
+"prompt_sha256": "6f429cdea7491ea7582a9df5aace219219df3a0ec72b2192f3c59fdda5cecab5",
+"gold_check": "a551fe8c074daae5"
+},
+{
+"id": "gpqa-134",
+"task": "gpqa",
+"prompt_sha256": "dab2ee77db87370adcf549e69288c204ec1825fee397c1faf8976af4db1bccbb",
+"gold_check": "7aa476434f5b945c"
+},
+{
+"id": "gpqa-135",
+"task": "gpqa",
+"prompt_sha256": "400bed6b3e1c786cf037b6accc885fe10a73ac7a6a9a00bb1fcef2bc5a2ac6e6",
+"gold_check": "72b1cd07d62ea305"
+},
+{
+"id": "gpqa-136",
+"task": "gpqa",
+"prompt_sha256": "e65b87ee5cb09a95c3e7f81b1ddba40bd5c09ec89a3ea6cd0d780d9b26d40f4e",
+"gold_check": "f524698d13738406"
+},
+{
+"id": "gpqa-137",
+"task": "gpqa",
+"prompt_sha256": "2023739a4e2a1ea57aa163d9e4f59e225e8e59c842172d3a2998b0a19f405538",
+"gold_check": "91122bb1d98772fb"
+},
+{
+"id": "gpqa-138",
+"task": "gpqa",
+"prompt_sha256": "8df2f03cb50d0b51e6770e9d47d34bc7e4751afd73ed97db56b5065e98a05d7f",
+"gold_check": "fe71565e2b288a21"
+},
+{
+"id": "gpqa-139",
+"task": "gpqa",
+"prompt_sha256": "f149b7cc1614b44997674ca041e249b5a790fdc6d4a33465b575926591844b28",
+"gold_check": "aea10ea5ecae6b34"
+},
+{
+"id": "gpqa-140",
+"task": "gpqa",
+"prompt_sha256": "83f2b49c2c11ee03a094cec72c0796a2730a026873b1281cdcb275fc8f88dddf",
+"gold_check": "0147a4a193efa3b5"
+},
+{
+"id": "gpqa-141",
+"task": "gpqa",
+"prompt_sha256": "3ca4ebf982f6b1733885d55c1f502bc4d76b04462ba3278248aea8afa4001cbe",
+"gold_check": "c071dd601b8659fa"
+},
+{
+"id": "gpqa-142",
+"task": "gpqa",
+"prompt_sha256": "3905ce566867538f9e5c5bdf4d84bb5f4397f5bb52c70acfac3ead022a8faab1",
+"gold_check": "df776076228e0af2"
+},
+{
+"id": "gpqa-143",
+"task": "gpqa",
+"prompt_sha256": "8d4c8742e8771018284237273963240587002c471d5032c1214e1cceb23e481d",
+"gold_check": "bba968f0183bef1d"
+},
+{
+"id": "gpqa-144",
+"task": "gpqa",
+"prompt_sha256": "95bea2d177a3606472cd68679f8614ce6ea21b700a10dc11abda46181c46eed7",
+"gold_check": "4b497829a8b9c226"
+},
+{
+"id": "gpqa-145",
+"task": "gpqa",
+"prompt_sha256": "dde8b0efb06660aebc00b29a5f78fee7285ee35670076049aab50c6e174ced13",
+"gold_check": "8e1eee0b88bb8492"
+},
+{
+"id": "gpqa-146",
+"task": "gpqa",
+"prompt_sha256": "2d62d70ec5230064608a0dcced7ee2349345b966ed391e90987a40c94519e887",
+"gold_check": "3ec3b4bd600284bf"
+},
+{
+"id": "gpqa-147",
+"task": "gpqa",
+"prompt_sha256": "4d118f493a87a1a6fabce4485a2a453370fb417d73354e7368104c272ba0e5ee",
+"gold_check": "0bd14d6b0ef105a1"
+},
+{
+"id": "gpqa-148",
+"task": "gpqa",
+"prompt_sha256": "7be1e34dc7e0fc32a4e5765bb031da1d68070816d3881178891062ea308c6bcb",
+"gold_check": "9c18f5841a6c9bbd"
+},
+{
+"id": "gpqa-149",
+"task": "gpqa",
+"prompt_sha256": "2a48d3ea6b6b1d86c4d984b0956a9477230eaffb66cda49659fbdf900b1865e6",
+"gold_check": "6eb85e4c27428e2e"
+},
+{
+"id": "gpqa-150",
+"task": "gpqa",
+"prompt_sha256": "06f5081415ae4906861940fa0797a7bf0e9d1d76772f9245d2b1dca2da865045",
+"gold_check": "6c5385d1fca78f0e"
+},
+{
+"id": "gpqa-151",
+"task": "gpqa",
+"prompt_sha256": "bddc186820dc407ba1b6683d5c96cfcdee3217b82a6c606b84be360451fb435f",
+"gold_check": "bd68a3030dd3db5a"
+},
+{
+"id": "gpqa-152",
+"task": "gpqa",
+"prompt_sha256": "c137c4b135b9d2c5033514422bae3e29f57ae9dca4d087748d16e18d053da031",
+"gold_check": "084560a93fb00d02"
+},
+{
+"id": "gpqa-153",
+"task": "gpqa",
+"prompt_sha256": "3c3fe2579f2fa06ddb1e613f82c75c87170292f08821f32b886839f188c8cf29",
+"gold_check": "f833c84042b40b02"
+},
+{
+"id": "gpqa-154",
+"task": "gpqa",
+"prompt_sha256": "a404fe21035c98f4144c755d833e5644216da0bba5fbc10ed0951efddab7aacd",
+"gold_check": "c3715590fe430ecb"
+},
+{
+"id": "gpqa-155",
+"task": "gpqa",
+"prompt_sha256": "ebc0c87ed49b5e83177b6f4c236c6c47d0cde60b879ed43fb5f0bb9a43f27dc3",
+"gold_check": "8a235f00057cf3a0"
+},
+{
+"id": "gpqa-156",
+"task": "gpqa",
+"prompt_sha256": "792c44b8c6d087ffdaee2ef87abb72874f0ced61c1b972eb7bd2cde5a50895b2",
+"gold_check": "8fca22b640957bcd"
+},
+{
+"id": "gpqa-157",
+"task": "gpqa",
+"prompt_sha256": "9c7f0dc08074fdb19fcc19286429764df17d66ed69a2889f67a493ffe9943b17",
+"gold_check": "d6bbc06b7a9384b2"
+},
+{
+"id": "gpqa-158",
+"task": "gpqa",
+"prompt_sha256": "e675afb508db745a71f88a02b47c89c2cf211edd3022e16cb0068cd46df0fbdd",
+"gold_check": "49a849c70c181358"
+},
+{
+"id": "gpqa-159",
+"task": "gpqa",
+"prompt_sha256": "a74abf91ad3e30c5ccbb81710b9231da45b72ffdc8b64330af6e7b8da1f3434b",
+"gold_check": "23fe067efa1a7a73"
+},
+{
+"id": "gpqa-160",
+"task": "gpqa",
+"prompt_sha256": "1c201fd3b3f1f578290dd1e29e61b163edd7d583b2cbe2f6dbe24c41cec33808",
+"gold_check": "79f6c843ffb5969c"
+},
+{
+"id": "gpqa-161",
+"task": "gpqa",
+"prompt_sha256": "55ee46af5c7ba20506177c309cc5f95976fc5b9535239903334817db426ee19c",
+"gold_check": "cfe24b4174f5d11a"
+},
+{
+"id": "gpqa-162",
+"task": "gpqa",
+"prompt_sha256": "b6acd7d61b15062bd066fcfd6127178ccae789a409f196cb3365ffae79114bcc",
+"gold_check": "d8da9ba5b64f362a"
+},
+{
+"id": "gpqa-163",
+"task": "gpqa",
+"prompt_sha256": "05656516f1300be4add8a6e690886a0d4b4ff17655d3af515334c1e9037f74ca",
+"gold_check": "a03c3df814a7f3f6"
+},
+{
+"id": "gpqa-164",
+"task": "gpqa",
+"prompt_sha256": "c8fadfa5bfff4d3ca99e57df3b4a8502b4ffcb83cf6aa65f474389d4bdf8c6e0",
+"gold_check": "88315da82b077a61"
+},
+{
+"id": "gpqa-165",
+"task": "gpqa",
+"prompt_sha256": "a27ab6686386c9eae2ffb7c5bec93d156364d62ed49472fb61351cbfb4fb79d5",
+"gold_check": "51ec564d8a405b98"
+},
+{
+"id": "gpqa-166",
+"task": "gpqa",
+"prompt_sha256": "ba6e1f5ca51894ae8b544b643abc253154a742262a6233f495399eedc7bddc38",
+"gold_check": "fa6e498f72a342c7"
+},
+{
+"id": "gpqa-167",
+"task": "gpqa",
+"prompt_sha256": "f27dfc49c0ec535ee7d1bfa95941885a664423fbe7b4ee7e82d806d00061c8f5",
+"gold_check": "cbff2868482c38c5"
+},
+{
+"id": "gpqa-168",
+"task": "gpqa",
+"prompt_sha256": "9a13e204b4efa43260f2c3cadec6044f25f1f53056e703d453cf1cf5ced102e9",
+"gold_check": "c8478ff7fd248e12"
+},
+{
+"id": "gpqa-169",
+"task": "gpqa",
+"prompt_sha256": "31799a1971459322b5dfb00c6c57d3e564ce7f33800072250cdcb4bea1697265",
+"gold_check": "a66571a2b7bf8e02"
+},
+{
+"id": "gpqa-170",
+"task": "gpqa",
+"prompt_sha256": "3cd3fa3ba319162d216aa39bac401b1fadf5d011edb0e18ca0b37a268d7f0771",
+"gold_check": "8e7ea102e6d2d947"
+},
+{
+"id": "gpqa-171",
+"task": "gpqa",
+"prompt_sha256": "f6787c777db55a6fbf9813d6ad432adf105ae2a145882320e69dd134d8d571d7",
+"gold_check": "adb8b7af8aece4c1"
+},
+{
+"id": "gpqa-172",
+"task": "gpqa",
+"prompt_sha256": "0763f20f42f9d6058df5c2bb046c874f63a4190f31953daa4ac3b6bc6a789375",
+"gold_check": "a3590642951bb417"
+},
+{
+"id": "gpqa-173",
+"task": "gpqa",
+"prompt_sha256": "6cac31f942a52109a94603b587fc9cd2e99bf5f8d67de7ea70bd38a03b4201a1",
+"gold_check": "78fc3198007d5e4d"
+},
+{
+"id": "gpqa-174",
+"task": "gpqa",
+"prompt_sha256": "fa96db3e00649e265051b4a53dcf392ded520f25a2f33c351e2d0f3309ded043",
+"gold_check": "dc9a374b6e425fee"
+},
+{
+"id": "gpqa-175",
+"task": "gpqa",
+"prompt_sha256": "e38f8bf5285451d3c8c0e3eb0980c9a4ca0ca853a1d21bbc1ffc4c49013c758b",
+"gold_check": "cb11bcc453170bd4"
+},
+{
+"id": "gpqa-176",
+"task": "gpqa",
+"prompt_sha256": "487b4487f99ebe66b9a99ff3b0863eb2c7a44f467e97d1cfcc0af18133a0ded5",
+"gold_check": "35a1dfb0016ba432"
+},
+{
+"id": "gpqa-177",
+"task": "gpqa",
+"prompt_sha256": "fcf07ee79e57996e3c2e25ec6b79908a91fb1c2c61d3ffbb221ad253aaf785ab",
+"gold_check": "577fa1a9e3d58450"
+},
+{
+"id": "gpqa-178",
+"task": "gpqa",
+"prompt_sha256": "32f3ff2eafc4e0a0f333d4dfd6ec7e4b8fd021a48a8963495b66cc580c336cfd",
+"gold_check": "7dceb876bc1a62d7"
+},
+{
+"id": "gpqa-179",
+"task": "gpqa",
+"prompt_sha256": "a05abde0d3dcb475b4ada17d2a0d52d7c722e95da9c92b0cfc3c90437bf6a1ec",
+"gold_check": "39f342a52aa969b9"
+},
+{
+"id": "gpqa-180",
+"task": "gpqa",
+"prompt_sha256": "c23498db01541e518ea5aefc0e5a1cf75bcbe694304e99179c966c0541867b37",
+"gold_check": "75f41a9357862afb"
+},
+{
+"id": "gpqa-181",
+"task": "gpqa",
+"prompt_sha256": "6794186db5d4793536362e159f25686b9524dc089dc0c29000ec9eb154f5ad7c",
+"gold_check": "817794db260a6ce4"
+},
+{
+"id": "gpqa-182",
+"task": "gpqa",
+"prompt_sha256": "72e444b3c892edb8019f0469f283be997dc96e274be070438b8dc50856670707",
+"gold_check": "08a5f55a044572e4"
+},
+{
+"id": "gpqa-183",
+"task": "gpqa",
+"prompt_sha256": "e00b37da657f8ca346e32df7bbc7711b72cb5c54dbe6103baa53131eea12800f",
+"gold_check": "2c37113ad41a90fb"
+},
+{
+"id": "gpqa-184",
+"task": "gpqa",
+"prompt_sha256": "0db2f99c4bbe619b356e288fe2498ae0513843f998e4bc685617eddb52c4cfc9",
+"gold_check": "2650e6f523301231"
+},
+{
+"id": "gpqa-185",
+"task": "gpqa",
+"prompt_sha256": "d168b3217a351edcd2de3fbcf033af932c0405185f7f24fa4e6c64abbdcfd4a8",
+"gold_check": "226d000d5fc0fd94"
+},
+{
+"id": "gpqa-186",
+"task": "gpqa",
+"prompt_sha256": "e42583bf09beca47cc5a26c84762aaef68230d360f343543a226e3228d0bfb1a",
+"gold_check": "05c532200f9c8aab"
+},
+{
+"id": "gpqa-187",
+"task": "gpqa",
+"prompt_sha256": "55ce6c6e282be46c804675003166ea4c3e5494b955dc1e6edb41b4b0b6f4885e",
+"gold_check": "4d99f907758820f6"
+},
+{
+"id": "gpqa-188",
+"task": "gpqa",
+"prompt_sha256": "ba70cc3c2f1be50a472a358964b24b3fd09e71c69f84dde7b01dc9bbd954bf4f",
+"gold_check": "e02c5da31b2077bd"
+},
+{
+"id": "gpqa-189",
+"task": "gpqa",
+"prompt_sha256": "ca4d57b215533818a564ede5a9d2da4421180257b2e84e0732419c6e12d568ba",
+"gold_check": "f51ab711024aacf9"
+},
+{
+"id": "gpqa-190",
+"task": "gpqa",
+"prompt_sha256": "a39481d09b02a0beaf83daa6eb5046cb14122238cbc994c576dcc5cdb2b8790c",
+"gold_check": "132af215c39b5115"
+},
+{
+"id": "gpqa-191",
+"task": "gpqa",
+"prompt_sha256": "cbef23a175894bc5d8fd79707bd64c5cca689f8b7a06770e3580299cea8dcfc9",
+"gold_check": "6959185a0e23ae6a"
+},
+{
+"id": "gpqa-192",
+"task": "gpqa",
+"prompt_sha256": "59d9a2cd51faeb50fcecd6e2d07612b873ab982ea4ab9ae88c2a0f48354a22a5",
+"gold_check": "ed60a1d060a94ec5"
+},
+{
+"id": "gpqa-193",
+"task": "gpqa",
+"prompt_sha256": "570f8cc55d8fa5ac51ee4a2dea5823ced81a20048affbfbc5eba06bda19c8850",
+"gold_check": "dfe1ba6ac463eea1"
+},
+{
+"id": "gpqa-194",
+"task": "gpqa",
+"prompt_sha256": "5c9fae6874a1b58a65569dca72b31236d86f56f7130f3e842838ddf37a98a6a3",
+"gold_check": "e1c376949aebd166"
+},
+{
+"id": "gpqa-195",
+"task": "gpqa",
+"prompt_sha256": "9aff21ecceea99636bbed608c23c1b723b5a815619357d501a3014044be146ab",
+"gold_check": "2fb4d8bdd481aa8e"
+},
+{
+"id": "gpqa-196",
+"task": "gpqa",
+"prompt_sha256": "ad1a1fb88a55f6a991bfa79e4d12eb718e38fe7022364023218f5cb1f5d139fc",
+"gold_check": "99b20b37db2cd37c"
+},
+{
+"id": "gpqa-197",
+"task": "gpqa",
+"prompt_sha256": "54d13147cebcbd874c747b42a01bffd661c5f41b6c6f8a2b7ae748410306c467",
+"gold_check": "804c9d146abbb35a"
+}
+]

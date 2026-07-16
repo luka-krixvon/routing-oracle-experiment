@@ -16,8 +16,15 @@ This is exactly what resample-or-reroute/experiments/run_pareto.py consumes.
 import argparse
 import json
 import os
+import sys
 
 import numpy as np
+
+# make `src` importable when run as `python scripts/gen_slim_tensor.py` (mirrors 01/02_*.py)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# runtime-only GPU box (driver, no CUDA toolkit): force native sampler so vLLM does NOT
+# JIT-compile FlashInfer (needs nvcc). Must be set BEFORE vllm is imported. (mirrors run_one_model.py)
+os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
 
 # same 11-model pool as the existing math500/gpqa tensors (keep consistent)
 MODELS = [
@@ -75,8 +82,7 @@ def main():
     out = os.path.join(os.path.dirname(__file__), "..", "artifacts", args.benchmark)
     os.makedirs(out, exist_ok=True)
     meta = {"N": N, "M": M, "k": k, "models": list(models)}
-    np.savez_compressed(
-        os.path.join(out, "correctness_slim.npz"),
+    save_kw = dict(
         b=b,
         b_single=b[:, :, 0].astype(np.int8),
         greedy=greedy,
@@ -84,6 +90,13 @@ def main():
         gold=np.array(golds, dtype=object),
         meta=json.dumps(meta),
     )
+    if args.benchmark == "gpqa":
+        # GPQA anti-leak: gold never goes into the committed npz; it lives in the
+        # gitignored .local.npz sidecar (see scripts/rebuild_gpqa_subset.py).
+        np.savez_compressed(os.path.join(out, "correctness_slim.local.npz"), **save_kw)
+        del save_kw["gold"]
+        print("gpqa: gold kept only in correctness_slim.local.npz (gitignored)")
+    np.savez_compressed(os.path.join(out, "correctness_slim.npz"), **save_kw)
     print("wrote", os.path.join(out, "correctness_slim.npz"))
     print("per-model reproducible p:", np.round(b.mean(axis=(0, 2)), 3))
 

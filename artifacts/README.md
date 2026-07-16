@@ -20,14 +20,50 @@ artifacts/
                            #   jackknife, tau reliability, and the learned kNN-router baseline
     subset.json            # the 500 MATH-500 prompts (id, prompt, gold, task)
   gsm8k/
-    decomposition.json     # same schema, GSM8K run
+    correctness_slim.npz   # same schema, GSM8K run
+    decomposition.json
     family_correlation.csv
+  gpqa/
+    correctness_slim.npz   # b (198,11,30) int8 + b_single, greedy, q_router, meta
+                           #   NOTE: no `gold` field — see "Licensing & GPQA" below
+    subset_ids.json        # ids + SHA-256 hashes only (no question text);
+                           #   rebuild plaintext with scripts/rebuild_gpqa_subset.py
+    decomposition.json / family_correlation.csv / robustness.json
+  humanevalplus/
+    correctness_slim.npz   # HumanEval+ code run (EvalPlus base+extra tests)
+    b_base.npz             # base-test-only correctness (the deployable verifier signal)
+    subset.json            # the 164 HumanEval+ tasks (Apache-2.0; redistributable)
   environment_report.json  # auto-captured hardware/software stack (Table VI)
 ```
 
 > GSM8K ships its `decomposition.json` + correlation only; its raw correctness
 > tensor and robustness suite can be regenerated with the same pipeline (the
 > MATH-500 tensor is included as the worked, unsaturated example).
+
+## Licensing & GPQA redistribution
+
+| Benchmark | Source | License | Redistributed here |
+|---|---|---|---|
+| GSM8K | `openai/gsm8k` | MIT | prompts + gold (subset.json) |
+| MATH-500 | `HuggingFaceH4/MATH-500` | MIT | prompts + gold (subset.json) |
+| HumanEval+ | EvalPlus | Apache-2.0 | tasks (subset.json) |
+| GPQA-Diamond | `Idavidrein/gpqa` (gated) | CC-BY-4.0 | **hashes only** (subset_ids.json) |
+
+GPQA's authors ask that questions and answers never be posted online in plain
+text, to keep the benchmark out of future training corpora. We honor that:
+this repo ships only correctness bits, query ids, and SHA-256 hashes for GPQA.
+To rebuild the plaintext subset locally (requires accepting the dataset terms
+on Hugging Face):
+
+```bash
+python scripts/rebuild_gpqa_subset.py        # writes artifacts/gpqa/subset.local.json
+                                             # + correctness_slim.local.npz (gold restored)
+```
+
+The rebuild is deterministic (seed=42, per-query seed-derived option shuffle)
+and hash-verified against `subset_ids.json`, so your local copy provably
+matches the one used in the paper. `*.local.*` files are gitignored — never
+commit them.
 
 ## Reproduce the decomposition (CPU, seconds)
 
