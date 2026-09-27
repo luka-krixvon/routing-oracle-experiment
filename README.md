@@ -6,7 +6,8 @@
 manuscript was submitted to TMLR on this date and remains **under review, not
 accepted**. This repository provides the corresponding author-named preprint
 and numerical evidence. An [arXiv replacement](https://arxiv.org/abs/2607.03436)
-is **being prepared**; this page does not announce a published arXiv v3.
+has been **submitted but not yet publicly announced by arXiv**; this page
+does not claim that arXiv v3 is publicly available.
 
 > **Start with the dated materials below.** The top-level `src/`, `scripts/`,
 > `configs/`, `tests/`, figures, and runner scripts are preserved legacy
@@ -108,8 +109,8 @@ Please cite the dated preprint for the current manuscript:
 
 [CITATION.cff](CITATION.cff) points to this dated GitHub preprint.
 The [arXiv record](https://arxiv.org/abs/2607.03436) remains the preprint-series
-entry; its replacement is being prepared and is not represented here as
-already published.
+entry. Its replacement has been submitted but not yet publicly announced
+by arXiv; the citation above continues to identify the dated GitHub preprint.
 
 ## Licensing
 

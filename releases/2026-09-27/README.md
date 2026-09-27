@@ -7,8 +7,9 @@ Coupling, Scorer Choice, and Single-Commit Ceilings*
 The anonymous revision was submitted to TMLR on 27 September 2026.
 It remains **under review, not accepted**. The PDF here is the corresponding
 author-named preprint, using the earlier arXiv preprint layout.
-The [arXiv replacement](https://arxiv.org/abs/2607.03436) is **being prepared**;
-these materials do not announce an already-published arXiv v3.
+The [arXiv replacement](https://arxiv.org/abs/2607.03436) has been **submitted
+but not yet publicly announced by arXiv**; these materials do not claim
+that arXiv v3 is publicly available.
 
 ## Files
 
