@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this code or the findings, please cite the preprint."
-title: "How Much of the Routing Gap Is Real? Decomposing the Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw Label Noise"
+message: "For the current manuscript and evidence, cite the dated preprint below. The top-level code is legacy material, not the current analysis implementation."
+title: "What Does a Routing Oracle Measure Under Stochastic Decoding? Coupling, Scorer Choice, and Single-Commit Ceilings — manuscript and evidence companion"
 type: software
 authors:
   - family-names: Chen
@@ -8,19 +8,20 @@ authors:
     affiliation: "Institute of Bioinformatics and Systems Biology, National Yang Ming Chiao Tung University, Hsinchu 300, Taiwan; and Krixvon AI, Taiwan"
     email: luka@krixvon.com
 repository-code: "https://github.com/luka-krixvon/routing-oracle-experiment"
-url: "https://arxiv.org/abs/2607.03436"
-license: MIT
-# version: v1.0            # set on tagged release
-# date-released: 2026-XX-XX
+url: "https://github.com/luka-krixvon/routing-oracle-experiment/tree/main/releases/2026-09-27"
+version: "2026-09-27"
+date-released: 2026-09-27
+# The repository MIT license covers legacy code, not all manuscript/evidence
+# contents or third-party material. See README.md for the licensing boundary.
 preferred-citation:
-  type: article
-  title: "How Much of the Routing Gap Is Real? Decomposing the Router-to-Oracle Gap into Reproducible Specialist Advantage and Single-Draw Label Noise"
+  type: report
+  title: "What Does a Routing Oracle Measure Under Stochastic Decoding? Coupling, Scorer Choice, and Single-Commit Ceilings"
   authors:
     - family-names: Chen
       given-names: Teng-Ruei
   year: 2026
-  month: 7
-  journal: "arXiv preprint"
-  doi: "10.48550/arXiv.2607.03436"
-  url: "https://arxiv.org/abs/2607.03436"
-  notes: "arXiv:2607.03436 (v2, revised 7 July 2026)."
+  month: 9
+  day: 27
+  date-published: 2026-09-27
+  url: "https://github.com/luka-krixvon/routing-oracle-experiment/blob/main/releases/2026-09-27/routing-oracle-preprint.pdf"
+  notes: "Dated preprint, 27 September 2026. The revised anonymous manuscript was submitted to TMLR on this date and remains under review, not accepted. The author-named PDF is provided here. An arXiv replacement for arXiv:2607.03436 is being prepared; this citation does not identify an already-published arXiv v3."
